@@ -35,7 +35,9 @@ class FeatureHandler():
     c_code = "#include <math.h>\n"
     c_code += "#include <string.h>\n"
     c_code += "#define K %d\n" % K
+    c_code += "extern \"C\" {\n"
     c_code += "\n" + open(os.path.join(TEMPLATE_DIR, "feature_handler.c")).read()
+    c_code += "\n}\n"
 
     filename = f"{FeatureHandler.name}_{K}"
     write_code(generated_dir, filename, c_code, c_header)
@@ -153,6 +155,6 @@ def generate_orient_error_jac(K):
 
 
 if __name__ == "__main__":
-  # TODO: get K from argparse
+  K = int(sys.argv[1].split("_")[-1])
   generated_dir = sys.argv[2]
-  FeatureHandler.generate_code(generated_dir)
+  FeatureHandler.generate_code(generated_dir, K=K)
