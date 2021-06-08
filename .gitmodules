@@ -1,9 +1,6 @@
 [submodule "panda"]
 	path = panda
 	url = https://github.com/ReFil/panda.git
-[submodule "opendbc"]
-	path = opendbc
-	url = https://github.com/RetroPilot/opendbc.git
 [submodule "laika_repo"]
 	path = laika_repo
 	url = https://github.com/commaai/laika.git
