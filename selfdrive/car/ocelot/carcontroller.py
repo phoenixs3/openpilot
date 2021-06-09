@@ -6,7 +6,6 @@ from selfdrive.car.ocelot.ocelotcan import create_steer_command, create_ibst_com
                                            create_pedal_command, create_msg_command
 from selfdrive.car.ocelot.values import SteerLimitParams
 from opendbc.can.packer import CANPacker
-from common.dp_common import common_controller_ctrl
 
 VisualAlert = car.CarControl.HUDControl.VisualAlert
 
@@ -95,18 +94,6 @@ class CarController():
       apply_steer_req = 0
     else:
       apply_steer_req = 1
-
-      # dp
-      blinker_on = CS.out.leftBlinker or CS.out.rightBlinker
-      if not enabled:
-        self.blinker_end_frame = 0
-      if self.last_blinker_on and not blinker_on:
-        self.blinker_end_frame = frame + dragonconf.dpSignalOffDelay
-      apply_steer = common_controller_ctrl(enabled,
-                                           dragonconf,
-                                           blinker_on or frame < self.blinker_end_frame,
-                                           apply_steer, CS.out.vEgo)
-      self.last_blinker_on = blinker_on
 
     self.last_steer = apply_steer
     self.last_accel = apply_accel
