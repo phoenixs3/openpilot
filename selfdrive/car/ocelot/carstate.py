@@ -5,11 +5,6 @@ from selfdrive.car.interfaces import CarStateBase
 from opendbc.can.parser import CANParser
 from selfdrive.config import Conversions as CV
 from selfdrive.car.ocelot.values import CAR, DBC, STEER_THRESHOLD, BUTTON_STATES
-import cereal.messaging as messaging        #needed?
-from common.travis_checker import travis    #needed?
-from common.op_params import opParams       #needed?
-
-op_params = opParams()
 
 class CarState(CarStateBase):
   def __init__(self, CP):
@@ -23,9 +18,6 @@ class CarState(CarStateBase):
     self.oldSpeedDn = False
     self.engineRPM = 0
     self.setSpeed = 10
-    if not travis:
-      self.pm = messaging.PubMaster(['liveTrafficData'])
-      self.sm = messaging.SubMaster(['liveMapData'])
     self.buttonStates = BUTTON_STATES.copy()
     self.oldButtonStates = BUTTON_STATES.copy()
 
@@ -105,11 +97,6 @@ class CarState(CarStateBase):
 
     ret.cruiseState.speed = self.setSpeed * CV.MPH_TO_MS
     ret.cruiseState.enabled = self.enabled
-
-
-    if not travis:
-      self.sm.update(0)
-      self.smartspeed = self.sm['liveMapData'].speedLimit
 
     ret.stockAeb = False
     ret.leftBlindspot = False
