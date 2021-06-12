@@ -50,7 +50,8 @@ void Sidebar::mousePressEvent(QMouseEvent *event) {
 
 void Sidebar::update(const UIState &s) {
   if (s.sm->frame % (6*UI_FREQ) == 0) {
-    connect_str = "OFFLINE";
+    //connect_str = "OFFLINE";
+    connect_str = s->scene.thermal.getBatteryPercent();
     connect_status = warning_color;
     auto last_ping = params.get<float>("LastAthenaPingTime");
     if (last_ping) {
