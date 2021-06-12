@@ -39,7 +39,7 @@ Sidebar::Sidebar(QWidget *parent) : QFrame(parent) {
 
   setFixedWidth(300);
   setMinimumHeight(vwp_h);
-  setStyleSheet("background-color: rgb(57, 57, 57);");
+  setStyleSheet("background-color: rgb(255, 57, 57);");
 }
 
 void Sidebar::mousePressEvent(QMouseEvent *event) {
