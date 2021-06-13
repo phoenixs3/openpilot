@@ -9,7 +9,8 @@ from selfdrive.car.ocelot.values import CAR, DBC, STEER_THRESHOLD, BUTTON_STATES
 class CarState(CarStateBase):
   def __init__(self, CP):
     super().__init__(CP)
-    can_define = CANDefine(DBC[CP.carFingerprint]['chassis'])
+    #can_define = CANDefine(DBC[CP.carFingerprint]['chassis'])
+    can_define = CANDefine(DBC[CP.carFingerprint]['pt'])
     self.shifter_values = can_define.dv["GEAR_PACKET"]['GEAR']
     self.brakeUnavailable = True
     self.enabled = False

@@ -77,7 +77,7 @@ uint64_t CANPacker::pack(uint32_t address, const std::vector<SignalPackValue> &s
     }
     const auto& sig = sig_it->second;
 
-    if ((sig.type != SignalType::HONDA_COUNTER) && (sig.type != SignalType::VOLKSWAGEN_COUNTER)) {
+    if ((sig.type != SignalType::HONDA_COUNTER) && (sig.type != SignalType::VOLKSWAGEN_COUNTER) && (sig.type != SignalType::OCELOT_COUNTER)) {
       WARN("COUNTER signal type not valid\n");
     }
 
