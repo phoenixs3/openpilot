@@ -50,19 +50,15 @@ void Sidebar::mousePressEvent(QMouseEvent *event) {
 
 void Sidebar::update(const UIState &s) {
   if (s.sm->frame % (6*UI_FREQ) == 0) {
-    //connect_str = "OFFLINE";
+    connect_str = "POOP";
     //batt_val = (int)s.scene.deviceState.getBatteryPercent();
     //snprintf(connect_str, sizeof(connect_str), "%d%%%s", s.scene.deviceState.getBatteryPercent(), s.scene.deviceState.getBatteryStatus() == "Charging" ? "+" : "-");
     //connect_str = s->scene.thermal.getBatteryPercent();
     //connect_status = good_color;
-    connect_status = warning_color;
-    auto last_ping = params.get<float>("LastAthenaPingTime");
-    if (last_ping) {
-      bool online = nanos_since_boot() - *last_ping < 70e9;
-      connect_str = online ? "ONLINE" : "ERROR";
-      //connect_str = s->scene.thermal.getBatteryPercent();
-      connect_status = online ? good_color : danger_color;
-    }
+
+    //connect_status = warning_color;
+    connect_status = good_color;
+    //connect_status = danger_color;
     repaint();
   }
 
@@ -78,7 +74,6 @@ void Sidebar::update(const UIState &s) {
   }
   temp_val = (int)s.scene.deviceState.getAmbientTempC();
 
-  batt_val = (int)s.scene.deviceState.getBatteryPercent();
 
   panda_str = "VEHICLE\nONLINE";
   panda_status = good_color;
@@ -116,5 +111,5 @@ void Sidebar::paintEvent(QPaintEvent *event) {
   // metrics
   drawMetric(p, "TEMP", QString("%1°C").arg(temp_val), temp_status, 338);
   drawMetric(p, panda_str, "", panda_status, 518);
-  drawMetric(p, "BATTERY\n", QString("%1°C").arg(batt_val), connect_status, 676);
+  drawMetric(p, "BATTERY\n" + connect_str, "", connect_status, 676);
 }
