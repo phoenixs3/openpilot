@@ -49,7 +49,7 @@ class CarController():
     self.packer = CANPacker(dbc_name)
 
   def update(self, enabled, CS, frame, actuators, pcm_cancel_cmd, hud_alert,
-             left_line, right_line, lead, left_lane_depart, right_lane_depart, dragonconf):
+             left_line, right_line, lead, left_lane_depart, right_lane_depart):
 
     # *** compute control surfaces ***
 
