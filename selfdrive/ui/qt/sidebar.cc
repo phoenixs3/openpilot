@@ -51,9 +51,9 @@ void Sidebar::mousePressEvent(QMouseEvent *event) {
 void Sidebar::update(const UIState &s) {
   if (s.sm->frame % (6*UI_FREQ) == 0) {
     connect_str[7];
-    batt_val = (int)s.scene.deviceState.getBatteryPercent();
+    //batt_val = (int)s.scene.deviceState.getBatteryPercent();
     
-    snprintf(connect_str, sizeof(connect_str), "%d%%%s", s.scene.deviceState.getBatteryPercent(), s.scene.deviceState.getBatteryStatus() == "Charging" ? "+" : "-");
+    sprintf(connect_str, sizeof(connect_str), "%d%%%s", s.scene.deviceState.getBatteryPercent(), s.scene.deviceState.getBatteryStatus() == "Charging" ? "+" : "-");
     //connect_str = s->scene.thermal.getBatteryPercent();
 
 
