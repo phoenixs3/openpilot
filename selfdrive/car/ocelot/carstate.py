@@ -154,8 +154,11 @@ class CarState(CarStateBase):
     signals = [
     ]
 
-    # use steering message to check if panda is connected to frc
     checks = [
+      ("BODYCONTROL", 80),
+      ("ABS", 80),
+      ("SMARTROADSTERWHEELSPEEDS", 80),
+      ("GEAR_PACKET", 80),
     ]
 
     if CP.carFingerprint == CAR.SMART_ROADSTER_COUPE:
