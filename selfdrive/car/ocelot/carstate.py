@@ -143,7 +143,7 @@ class CarState(CarStateBase):
     if CP.enableGasInterceptor:
       signals.append(("PED_GAS", "GAS_SENSOR", 0))
       signals.append(("PED_GAS2", "GAS_SENSOR", 0))
-      checks.append(("GAS_SENSOR", 50))
+      checks.append(("GAS_SENSOR", 40))
 
 
     return CANParser(DBC[CP.carFingerprint]['pt'], signals, checks, 1)
@@ -155,10 +155,10 @@ class CarState(CarStateBase):
     ]
 
     checks = [
-      ("BODYCONTROL", 80),
-      ("ABS", 80),
-      ("SMARTROADSTERWHEELSPEEDS", 80),
-      ("GEAR_PACKET", 80),
+      ("BODYCONTROL", 10),
+      ("ABS", 10),
+      ("SMARTROADSTERWHEELSPEEDS", 10),
+      ("GEAR_PACKET", 10),
     ]
 
     if CP.carFingerprint == CAR.SMART_ROADSTER_COUPE:
