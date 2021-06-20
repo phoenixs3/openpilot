@@ -1,5 +1,5 @@
 #include "selfdrive/ui/qt/sidebar.h"
-
+#include <stdio.h>
 #include "selfdrive/ui/qt/qt_window.h"
 #include "selfdrive/common/util.h"
 #include "selfdrive/hardware/hw.h"
@@ -50,11 +50,12 @@ void Sidebar::mousePressEvent(QMouseEvent *event) {
 
 void Sidebar::update(const UIState &s) {
   if (s.sm->frame % (6*UI_FREQ) == 0) {
-    connect_str = "POOP";
-    //batt_val = (int)s.scene.deviceState.getBatteryPercent();
-    //snprintf(connect_str, sizeof(connect_str), "%d%%%s", s.scene.deviceState.getBatteryPercent(), s.scene.deviceState.getBatteryStatus() == "Charging" ? "+" : "-");
+    connect_str[7];
+    batt_val = (int)s.scene.deviceState.getBatteryPercent();
+    
+    snprintf(connect_str, sizeof(connect_str), "%d%%%s", s.scene.deviceState.getBatteryPercent(), s.scene.deviceState.getBatteryStatus() == "Charging" ? "+" : "-");
     //connect_str = s->scene.thermal.getBatteryPercent();
-    //connect_status = good_color;
+
 
     //connect_status = warning_color;
     connect_status = good_color;
