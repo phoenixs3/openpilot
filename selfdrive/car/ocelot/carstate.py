@@ -54,8 +54,8 @@ class CarState(CarStateBase):
     ret.standstill = ret.vEgoRaw < 0.001
 
     #Toyota SAS
-    ret.steeringAngle = -(cp.vl["TOYOTA_STEERING_ANGLE_SENSOR1"]['TOYOTA_STEER_ANGLE'] + cp.vl["TOYOTA_STEERING_ANGLE_SENSOR1"]['TOYOTA_STEER_FRACTION'])
-    ret.steeringRate = -cp.vl["TOYOTA_STEERING_ANGLE_SENSOR1"]['TOYOTA_STEER_RATE']
+    ret.steeringAngleDeg = -(cp.vl["TOYOTA_STEERING_ANGLE_SENSOR1"]['TOYOTA_STEER_ANGLE'] + cp.vl["TOYOTA_STEERING_ANGLE_SENSOR1"]['TOYOTA_STEER_FRACTION'])
+    ret.steeringRateDeg = -cp.vl["TOYOTA_STEERING_ANGLE_SENSOR1"]['TOYOTA_STEER_RATE']
 
 
     #Steering information from smart standin ECU
