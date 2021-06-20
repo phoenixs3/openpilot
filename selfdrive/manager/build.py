@@ -15,8 +15,8 @@ from selfdrive.version import dirty
 
 TOTAL_SCONS_NODES = 2405
 MAX_BUILD_PROGRESS = 100
-PREBUILT = os.path.exists(os.path.join(BASEDIR, 'prebuilt'))
-#PREBUILT = False
+#PREBUILT = os.path.exists(os.path.join(BASEDIR, 'prebuilt'))
+PREBUILT = False
 
 
 def build(spinner, dirty=False):
