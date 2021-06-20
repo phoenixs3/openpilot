@@ -51,7 +51,7 @@ void Sidebar::mousePressEvent(QMouseEvent *event) {
 void Sidebar::update(const UIState &s) {
   if (s.sm->frame % (6*UI_FREQ) == 0) {
     //connect_str = "OFFLINE";
-    batt_val = (int)s.scene.deviceState.getBatteryPercent();
+    //batt_val = (int)s.scene.deviceState.getBatteryPercent();
     //snprintf(connect_str, sizeof(connect_str), "%d%%%s", s.scene.deviceState.getBatteryPercent(), s.scene.deviceState.getBatteryStatus() == "Charging" ? "+" : "-");
     //connect_str = s->scene.thermal.getBatteryPercent();
     //connect_status = good_color;
@@ -77,6 +77,8 @@ void Sidebar::update(const UIState &s) {
     temp_status = warning_color;
   }
   temp_val = (int)s.scene.deviceState.getAmbientTempC();
+
+  batt_val = (int)s.scene.deviceState.getBatteryPercent();
 
   panda_str = "VEHICLE\nONLINE";
   panda_status = good_color;
