@@ -49,11 +49,11 @@ void Sidebar::mousePressEvent(QMouseEvent *event) {
 
 void Sidebar::update(const UIState &s) {
   if (s.sm->frame % (6*UI_FREQ) == 0) {
-    connect_str = "";
+    connect_str = "OK";
     int battery = (int)s.scene.deviceState.getBatteryPercent();
     connect_status = danger_color;
 
-    if (battery > 50){connect_status = warning_color;}
+    if (battery > 20){connect_status = warning_color;}
     if (battery > 90){connect_status = good_color;}
 
     
