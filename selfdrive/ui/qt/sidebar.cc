@@ -49,15 +49,20 @@ void Sidebar::mousePressEvent(QMouseEvent *event) {
 
 void Sidebar::update(const UIState &s) {
   if (s.sm->frame % (6*UI_FREQ) == 0) {
-    connect_str = "blah";
-    //batt_val = (int)s.scene.deviceState.getBatteryPercent();
+    connect_str = "";
+    int battery = (int)s.scene.deviceState.getBatteryPercent();
+    connect_status = danger_color;
+
+    if (battery > 50){connect_status = warning_color;}
+    if (battery > 90){connect_status = good_color;}
+
     
-    //sprintf(connect_str, sizeof(connect_str), "%d%%%s", s.scene.deviceState.getBatteryPercent(), s.scene.deviceState.getBatteryStatus() == "Charging" ? "+" : "-");
-    connect_str = QString("%1").arg(s.scene.deviceState.getBatteryPercent);
+    //snprintf(connect_str, sizeof(connect_str), "%d%%%s", s.scene.deviceState.getBatteryPercent(), s.scene.deviceState.getBatteryStatus() == "Charging" ? "+" : "-");
+    //connect_str = QString("%1").arg(s.scene.deviceState.getBatteryPercent);
 
 
     //connect_status = warning_color;
-    connect_status = good_color;
+    //connect_status = good_color;
     //connect_status = danger_color;
     repaint();
   }
