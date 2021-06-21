@@ -113,7 +113,6 @@ class CarState(CarStateBase):
   def get_can_parser(CP):
 
     signals = [
-      # sig_name, sig_address, default
       ("TOYOTA_STEER_ANGLE", "TOYOTA_STEERING_ANGLE_SENSOR1", 0),
       ("BRAKE_APPLIED", "BRAKE_STATUS", 0),
       ("DRIVER_BRAKE_APPLIED", "BRAKE_STATUS", 0),
@@ -128,23 +127,17 @@ class CarState(CarStateBase):
       ("STEERING_TORQUE_DRIVER", "STEERING_STATUS", 0),
       ("STEERING_TORQUE_EPS", "STEERING_STATUS", 0),
       ("STEERING_OK", "STEERING_STATUS", 0),
-      ("ENABLED", "CURRENT_STATE", 0)
+      ("PED_GAS", "GAS_SENSOR", 0),
+      ("PED_GAS2", "GAS_SENSOR", 0)
     ]
 
     checks = [
       ("TOYOTA_STEERING_ANGLE_SENSOR1", 80),
       ("STEERING_STATUS", 80),
-      ("HIM_CTRLS", 80),
-      ("CURRENT_STATE", 80),
+      ("HIM_CTRLS", 10),
       ("BRAKE_STATUS", 80),
+      ("GAS_SENSOR", 40),
     ]
-
-    # add gas interceptor reading if we are using it
-    if CP.enableGasInterceptor:
-      signals.append(("PED_GAS", "GAS_SENSOR", 0))
-      signals.append(("PED_GAS2", "GAS_SENSOR", 0))
-      checks.append(("GAS_SENSOR", 40))
-
 
     return CANParser(DBC[CP.carFingerprint]['pt'], signals, checks, 1)
 
