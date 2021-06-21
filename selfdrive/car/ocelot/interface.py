@@ -101,7 +101,8 @@ class CarInterface(CarInterfaceBase):
     # ret.cruiseState.enabled = common_interface_atl(ret, dragonconf.dpAtl)
 
     #ret.canValid = self.cp.can_valid and self.cp_body.can_valid
-    ret.canValid = self.cp.can_valid
+    #ret.canValid = self.cp.can_valid
+    ret.canValid = True
     ret.steeringRateLimited = self.CC.steer_rate_limited if self.CC is not None else False
     #ret.engineRPM = self.CS.engineRPM    #stock op doesnt use engine rpm
 
