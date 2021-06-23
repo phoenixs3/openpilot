@@ -61,6 +61,13 @@ def process(in_fn, out_fn):
     checksum_start_bit = 7
     counter_start_bit = None
     little_endian = False
+  elif can_dbc.name.startswith(("ocelot_")):
+    checksum_type = "ocelot"
+    checksum_size = 8
+    counter_size = 4
+    checksum_start_bit = 0
+    counter_start_bit = 0
+    little_endian = True
   else:
     checksum_type = None
     checksum_size = None

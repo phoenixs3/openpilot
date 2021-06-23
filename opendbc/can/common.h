@@ -22,6 +22,7 @@ unsigned int chrysler_checksum(unsigned int address, uint64_t d, int l);
 void init_crc_lookup_tables();
 unsigned int volkswagen_crc(unsigned int address, uint64_t d, int l);
 unsigned int pedal_checksum(uint64_t d, int l);
+unsigned int ocelot_checksum(uint64_t d, int l);
 uint64_t read_u64_be(const uint8_t* v);
 uint64_t read_u64_le(const uint8_t* v);
 
@@ -41,7 +42,7 @@ public:
   uint8_t counter_fail;
 
   bool ignore_checksum = false;
-  bool ignore_counter = false;
+  bool ignore_counter = true;
 
   bool parse(uint64_t sec, uint16_t ts_, uint8_t * dat);
   bool update_counter_generic(int64_t v, int cnt_size);
