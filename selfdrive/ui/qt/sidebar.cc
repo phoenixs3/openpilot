@@ -54,7 +54,7 @@ void Sidebar::update(const UIState &s) {
     connect_status = danger_color;
 
     if (battery > 20){connect_status = warning_color;}
-    if (battery > 90){connect_status = good_color;}
+    if (battery > 89){connect_status = good_color;}
 
     if(battery == 1){connect_str = "1%";}
     if(battery == 2){connect_str = "2%";}
