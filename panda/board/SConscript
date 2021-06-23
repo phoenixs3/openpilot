@@ -34,6 +34,7 @@ else:
     "-fsingle-precision-constant",
     "-Os",
     "-g",
+    "-DDEBUG",
   ]
 
   if not PC:
