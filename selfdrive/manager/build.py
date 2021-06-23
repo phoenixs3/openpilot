@@ -19,7 +19,7 @@ MAX_BUILD_PROGRESS = 100
 PREBUILT = False
 
 
-def build(spinner, dirty=False):
+def build(spinner, dirty=True):
   env = os.environ.copy()
   env['SCONS_PROGRESS'] = "1"
   #env['SCONS_CACHE'] = "1"
