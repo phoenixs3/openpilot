@@ -20,13 +20,11 @@ class CarInterface(CarInterfaceBase):
     self.cruise_enabled_prev = False
     self.buttonStatesPrev = BUTTON_STATES.copy()
 
-
   @staticmethod
   def get_params(candidate, fingerprint=gen_empty_fingerprint(), car_fw=[]):  # pylint: disable=dangerous-default-value
     ret = CarInterfaceBase.get_std_params(candidate, fingerprint)
 
     ret.carName = "ocelot"
-    # dp
     ret.lateralTuning.init('pid')
     ret.safetyModel = car.CarParams.SafetyModel.allOutput
 
@@ -40,22 +38,17 @@ class CarInterface(CarInterfaceBase):
         ret.lateralTuning.pid.kf = 0.   #was 0.00007818594
         ret.safetyParam = 100
         ret.wheelbase = 2.36
-        ret.steerRatio = 14.8
+        ret.steerRatio = 18
         tire_stiffness_factor = 0.444
         ret.mass = 810 + STD_CARGO_KG
         ret.steerRateCost = 1.
         ret.centerToFront = ret.wheelbase * 0.44
-
-
-    #ret = common_interface_get_params_lqr(ret)
 
     ret.rotationalInertia = scale_rot_inertia(ret.mass, ret.wheelbase)
     ret.tireStiffnessFront, ret.tireStiffnessRear = scale_tire_stiffness(ret.mass, ret.wheelbase, ret.centerToFront,
                                                                          tire_stiffness_factor=tire_stiffness_factor)
 
     ret.enableGasInterceptor = True
-    ret.enableCruise = True         #not found in toyota interface
-    ret.enableDsu = False            #maybe this needs disabed for long control
     ret.stoppingControl = True      #should these be enabled for long control
     ret.enableCamera = True
     ret.openpilotLongitudinalControl = True
@@ -83,11 +76,9 @@ class CarInterface(CarInterfaceBase):
     ret.brakeMaxV = [1., 0.9]
     ret.stoppingBrakeRate = 0.16 # reach stopping target smoothly
 
-    
-
     return ret
 
-  # returns a car.CarState
+  #returns a car.CarState
   def update(self, c, can_strings):
     buttonEvents = []
     # ******************* do can recv *******************
@@ -96,15 +87,8 @@ class CarInterface(CarInterfaceBase):
 
     ret = self.CS.update(self.cp, self.cp_body, c.enabled)
 
-    # dp
-    # self.dragonconf = dragonconf
-    # ret.cruiseState.enabled = common_interface_atl(ret, dragonconf.dpAtl)
-
     ret.canValid = self.cp.can_valid and self.cp_body.can_valid
-    #ret.canValid = self.cp.can_valid
-    #ret.canValid = self.cp_body.can_valid
     ret.steeringRateLimited = self.CC.steer_rate_limited if self.CC is not None else False
-    #ret.engineRPM = self.CS.engineRPM    #stock op doesnt use engine rpm
 
     # events
     events = self.create_common_events(ret)
@@ -126,15 +110,12 @@ class CarInterface(CarInterfaceBase):
     self.CS.out = ret.as_reader()
     return self.CS.out
 
-  # pass in a car.CarControl
-  # to be called @ 100hz
+  #Pass in a car.CarControl, to be called @ 100hz
   def apply(self, c):
-
     can_sends = self.CC.update(c.enabled, self.CS, self.frame,
                                c.actuators, c.cruiseControl.cancel,
                                c.hudControl.visualAlert, c.hudControl.leftLaneVisible,
                                c.hudControl.rightLaneVisible, c.hudControl.leadVisible,
                                c.hudControl.leftLaneDepart, c.hudControl.rightLaneDepart)
-
     self.frame += 1
     return can_sends

@@ -54,7 +54,6 @@ class CarController():
     # *** compute control surfaces ***
 
     # gas and brake
-
     apply_gas = clip(actuators.gas, 0., 1.)
 
     if CS.CP.enableGasInterceptor:
@@ -108,13 +107,12 @@ class CarController():
     # sending it at 100Hz seem to allow a higher rate limit, as the rate limit seems imposed
     # on consecutive messages
     if CS.out.vEgo == 0:
-      apply_brakes = 0.25
+      apply_brakes = 0.20
     else:
       apply_brakes = actuators.brake
 
     can_sends.append(create_steer_command(self.packer, apply_steer, apply_steer_req, frame))
     can_sends.append(create_ibst_command(self.packer, enabled, apply_brakes, frame))
-
     can_sends.append(create_pedal_command(self.packer, apply_gas, frame))
 
     # ui mesg is at 100Hz but we send asap if:

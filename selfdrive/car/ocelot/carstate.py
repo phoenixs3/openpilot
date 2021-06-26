@@ -39,7 +39,7 @@ class CarState(CarStateBase):
         ret.gearShifter = self.parse_gear_shifter(self.shifter_values.get(can_gear, None))
         self.engineRPM = cp_body.vl["GEAR_PACKET"]["RPM"]
 
-    #Ibooster data
+    #iBooster data
     ret.brakePressed = bool(cp.vl["BRAKE_STATUS"]['DRIVER_BRAKE_APPLIED'])
     ret.brakeLights = bool(cp.vl["BRAKE_STATUS"]['BRAKE_APPLIED'])
     self.brakeUnavailable = not bool(cp.vl["BRAKE_STATUS"]['BRAKE_OK'])
@@ -53,17 +53,15 @@ class CarState(CarStateBase):
     ret.vEgo, ret.aEgo = self.update_speed_kf(ret.vEgoRaw)
     ret.standstill = ret.vEgoRaw < 0.001
 
-    #Toyota SAS
+    #Toyota SAS (installed flipped)
     ret.steeringAngleDeg = -(cp.vl["TOYOTA_STEERING_ANGLE_SENSOR1"]['TOYOTA_STEER_ANGLE'] + cp.vl["TOYOTA_STEERING_ANGLE_SENSOR1"]['TOYOTA_STEER_FRACTION'])
     ret.steeringRateDeg = -cp.vl["TOYOTA_STEERING_ANGLE_SENSOR1"]['TOYOTA_STEER_RATE']
-
 
     #Steering information from smart standin ECU
     ret.steeringTorque = cp.vl["STEERING_STATUS"]['STEERING_TORQUE_DRIVER']
     ret.steeringTorqueEps = cp.vl["STEERING_STATUS"]['STEERING_TORQUE_EPS']
     ret.steeringPressed = abs(ret.steeringTorque) > STEER_THRESHOLD
     ret.steerError = bool(cp.vl["STEERING_STATUS"]['STEERING_OK'] == 0)
-
 
     ret.cruiseState.available = True
     ret.cruiseState.standstill = False

@@ -8,9 +8,9 @@ Ecu = car.CarParams.Ecu
 class SteerLimitParams:
   STEER_MAX = 255               # max_steer 4095
   STEER_STEP = 1                # how often we update the steer cmd
-  STEER_DELTA_UP = 10           # torque increase per refresh, 0.8s to max
-  STEER_DELTA_DOWN = 20         # torque decrease per refresh
-  STEER_DRIVER_ALLOWANCE = 80   # allowed driver torque before start limiting
+  STEER_DELTA_UP = 6            # torque increase per refresh, 0.425s to max
+  STEER_DELTA_DOWN = 10         # torque decrease per refresh
+  STEER_DRIVER_ALLOWANCE = 150  # allowed driver torque before start limiting
   STEER_DRIVER_MULTIPLIER = 10  # weight driver torque heavily
   STEER_DRIVER_FACTOR = 1
 
@@ -26,14 +26,11 @@ BUTTON_STATES = {
   "gapAdjustCruise": False
 }
 
-# addr: (ecu, cars, bus, 1/freq*100, vl)
 STATIC_MSGS = [
-
 ]
 
 ECU_FINGERPRINT = {
 }
-
 
 FINGERPRINTS = {
   CAR.SMART_ROADSTER_COUPE: [{
@@ -41,10 +38,7 @@ FINGERPRINTS = {
    }]
 }
 
-# Don't use theses fingerprints for fingerprinting, they are still needed for ECU detection
-
-
-STEER_THRESHOLD = 80
+STEER_THRESHOLD = 70
 
 DBC = {
     CAR.SMART_ROADSTER_COUPE: dbc_dict('ocelot_can', 'ford_focus_adas', chassis_dbc = 'ocelot_smart_roadster_pt'),
