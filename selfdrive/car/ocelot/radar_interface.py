@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import time
 from cereal import car
 from opendbc.can.parser import CANParser
 from selfdrive.car.ocelot.values import DBC
@@ -22,12 +23,21 @@ class RadarInterface(RadarInterfaceBase):
     super().__init__(CP)
     self.validCnt = {key: 0 for key in RADAR_MSGS}
     self.track_id = 0
+    self.radar_ts = CP.radarTimeStep
+    #self.no_radar_sleep = 'NO_RADAR_SLEEP' in os.environ
 
     self.rcp = _create_radar_can_parser(CP.carFingerprint)
     self.trigger_msg = 0x12E
     self.updated_messages = set()
 
+    #Disable radar for vision only testing
+    self.no_radar = True
+
   def update(self, can_strings):
+    if self.no_radar:
+      time.sleep(self.radar_ts)
+      return car.RadarData.new_message()
+    
     vls = self.rcp.update_strings(can_strings)
     self.updated_messages.update(vls)
 
