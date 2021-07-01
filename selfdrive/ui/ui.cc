@@ -351,6 +351,8 @@ void Device::updateBrightness(const UIState &s) {
   }
 
   int brightness = brightness_filter.update(clipped_brightness);
+  if (brightness < 81){brightness = brightness + 20;}   //Increased brightness tweak
+  
   if (!awake) {
     brightness = 0;
   }

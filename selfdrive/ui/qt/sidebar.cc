@@ -122,6 +122,17 @@ void Sidebar::update(const UIState &s) {
     if(battery == 59){connect_str = "59%";}
     if(battery == 60){connect_str = "60%";}
 
+    if(battery == 61){connect_str = "61%";}
+    if(battery == 62){connect_str = "62%";}
+    if(battery == 63){connect_str = "63%";}
+    if(battery == 64){connect_str = "64%";}
+    if(battery == 65){connect_str = "65%";}
+    if(battery == 66){connect_str = "66%";}
+    if(battery == 67){connect_str = "67%";}
+    if(battery == 68){connect_str = "68%";}
+    if(battery == 69){connect_str = "69%";}
+    if(battery == 70){connect_str = "70%";}
+
     if(battery == 71){connect_str = "71%";}
     if(battery == 72){connect_str = "72%";}
     if(battery == 73){connect_str = "73%";}

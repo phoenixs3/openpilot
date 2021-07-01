@@ -38,7 +38,7 @@ class CarInterface(CarInterfaceBase):
         ret.lateralTuning.pid.kf = 0.   #was 0.00007818594
         ret.safetyParam = 100
         ret.wheelbase = 2.36
-        ret.steerRatio = 18
+        ret.steerRatio = 20
         tire_stiffness_factor = 0.444
         ret.mass = 810 + STD_CARGO_KG
         ret.steerRateCost = 1.
@@ -61,7 +61,7 @@ class CarInterface(CarInterfaceBase):
     
     #Longitudinal Proportional values
     ret.longitudinalTuning.kpBP = [0., 5., 35.]
-    ret.longitudinalTuning.kpV = [1., 0.6, 0.3]
+    ret.longitudinalTuning.kpV = [1., 0.8, 0.5]
     
     #Longitudinal Integral Values
     ret.longitudinalTuning.kiBP = [0., 55.]
