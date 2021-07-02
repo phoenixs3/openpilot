@@ -226,7 +226,12 @@ static void ui_draw_vision_event(UIState *s) {
     const int radius = 96;
     const int center_x = s->viz_rect.right() - radius - bdr_s * 2;
     const int center_y = s->viz_rect.y + radius  + (bdr_s * 1.5);
-    ui_draw_circle_image(s, center_x, center_y, radius, "wheel", bg_colors[s->status], 1.0f);
+    if (s->status == 0){
+      ui_draw_circle_image(s, center_x, center_y, radius, "wheel", nvgRGBA(15, 80, 251, 255), 1.0f);
+    } else {
+      ui_draw_circle_image(s, center_x, center_y, radius, "wheel", bg_colors[s->status], 1.0f);
+    }
+
   }
 }
 

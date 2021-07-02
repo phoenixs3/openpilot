@@ -6,9 +6,9 @@ Ecu = car.CarParams.Ecu
 
 # Steer torque limits
 class SteerLimitParams:
-  STEER_MAX = 255               # max_steer 4095
+  STEER_MAX = 255               # max_steer 255 (100% duty cycle)
   STEER_STEP = 1                # how often we update the steer cmd
-  STEER_DELTA_UP = 6            # torque increase per refresh, 0.425s to max
+  STEER_DELTA_UP = 8            # torque increase per refresh, to max
   STEER_DELTA_DOWN = 10         # torque decrease per refresh
   STEER_DRIVER_ALLOWANCE = 150  # allowed driver torque before start limiting
   STEER_DRIVER_MULTIPLIER = 10  # weight driver torque heavily

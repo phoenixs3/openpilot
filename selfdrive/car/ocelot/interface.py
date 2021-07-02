@@ -52,7 +52,6 @@ class CarInterface(CarInterfaceBase):
     ret.stoppingControl = True      #should these be enabled for long control
     ret.enableCamera = True
     ret.openpilotLongitudinalControl = True
-    cloudlog.warning("ECU Gas Interceptor: %r", ret.enableGasInterceptor)
     ret.minEnableSpeed = -1.
 
     #Longitudinal deadzone values
@@ -65,7 +64,7 @@ class CarInterface(CarInterfaceBase):
     
     #Longitudinal Integral Values
     ret.longitudinalTuning.kiBP = [0., 55.]
-    ret.longitudinalTuning.kiV = [0.18, 0.1]
+    ret.longitudinalTuning.kiV = [0.3, 0.2]
 
     #Gas maximum values
     ret.gasMaxBP = [0., 9., 35]
@@ -74,7 +73,10 @@ class CarInterface(CarInterfaceBase):
     #Brake maximum values
     ret.brakeMaxBP = [5., 20.]
     ret.brakeMaxV = [1., 0.9]
-    ret.stoppingBrakeRate = 0.16 # reach stopping target smoothly
+    
+    #ret.stoppingBrakeRate = 0.16 # reach stopping target smoothly
+    #ret.startingBrakeRate = 2.0 # release brakes fast
+    #ret.startAccel = 1.2 # Accelerate from 0 faster
 
     return ret
 

@@ -45,7 +45,6 @@ class CarController():
     self.last_fault_frame = -200
     self.steer_rate_limited = False
 
-
     self.packer = CANPacker(dbc_name)
 
   def update(self, enabled, CS, frame, actuators, pcm_cancel_cmd, hud_alert,
@@ -103,9 +102,6 @@ class CarController():
     #*** control msgs ***
     #print("steer {0} {1} {2} {3}".format(apply_steer, min_lim, max_lim, CS.steer_torque_motor)
 
-    # toyota can trace shows this message at 42Hz, with counter adding alternatively 1 and 2;
-    # sending it at 100Hz seem to allow a higher rate limit, as the rate limit seems imposed
-    # on consecutive messages
     if CS.out.vEgo == 0:
       apply_brakes = 0.20
     else:
@@ -115,11 +111,7 @@ class CarController():
     can_sends.append(create_ibst_command(self.packer, enabled, apply_brakes, frame))
     can_sends.append(create_pedal_command(self.packer, apply_gas, frame))
 
-    # ui mesg is at 100Hz but we send asap if:
-    # - there is something to display
-    # - there is something to stop displaying
-    #CS.out.cruiseState.enabled = enabled
-
+    #UI mesg is at 100Hz but we send asap if:
     if (frame % 100 == 0):
       can_sends.append(create_msg_command(self.packer, enabled, CS.out.cruiseState.speed * CV.MS_TO_MPH, CS.out.vEgo * CV.MS_TO_MPH))
 
