@@ -35,7 +35,8 @@ class RadarInterface(RadarInterfaceBase):
 
   def update(self, can_strings):
     if self.no_radar:
-      time.sleep(self.radar_ts)
+      #time.sleep(self.radar_ts)
+      time.sleep(0.02)
       return car.RadarData.new_message()
     
     vls = self.rcp.update_strings(can_strings)

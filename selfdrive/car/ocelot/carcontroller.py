@@ -102,7 +102,7 @@ class CarController():
     #*** control msgs ***
     #print("steer {0} {1} {2} {3}".format(apply_steer, min_lim, max_lim, CS.steer_torque_motor)
 
-    if CS.out.vEgo == 0:
+    if CS.out.vEgo < 0.3:
       apply_brakes = 0.20
     else:
       apply_brakes = actuators.brake
