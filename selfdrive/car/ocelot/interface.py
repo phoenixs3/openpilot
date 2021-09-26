@@ -36,7 +36,7 @@ class CarInterface(CarInterfaceBase):
         ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
         ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.05], [0.008]]
         ret.lateralTuning.pid.kf = 0.   #was 0.00007818594
-        ret.safetyParam = 100
+        ret.safetyParam = 100           #alloutput for now
         ret.wheelbase = 2.36
         ret.steerRatio = 20
         tire_stiffness_factor = 0.444
@@ -60,15 +60,15 @@ class CarInterface(CarInterfaceBase):
     
     #Longitudinal Proportional values
     ret.longitudinalTuning.kpBP = [0., 5., 35.]
-    ret.longitudinalTuning.kpV = [1., 0.8, 0.5]
+    ret.longitudinalTuning.kpV = [0.8, 0.6, 0.5]
     
     #Longitudinal Integral Values
     ret.longitudinalTuning.kiBP = [0., 55.]
     ret.longitudinalTuning.kiV = [0.3, 0.2]
 
     #Gas maximum values
-    ret.gasMaxBP = [0., 5., 35]
-    ret.gasMaxV = [0.35, 0.3, 0.4]
+    ret.gasMaxBP = [0., 1., 35]
+    ret.gasMaxV = [0.2, 0.3, 0.4]
 
     #Brake maximum values
     ret.brakeMaxBP = [5., 20.]
