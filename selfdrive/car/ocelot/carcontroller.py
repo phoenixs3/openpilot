@@ -45,7 +45,6 @@ class CarController():
       apply_steer_req = 1
 
     self.last_steer = apply_steer
-    self.last_accel = apply_accel
     self.last_standstill = CS.out.standstill
 
     can_sends = []
