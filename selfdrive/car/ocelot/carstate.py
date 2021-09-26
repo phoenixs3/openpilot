@@ -19,15 +19,14 @@ class CarState(CarStateBase):
     self.engineRPM = 0
     self.setSpeed = 10
     self.buttonStates = BUTTON_STATES.copy()
-    self.oldButtonStates = BUTTON_STATES.copy()
 
   def update(self, cp, cp_body, enabled):
     ret = car.CarState.new_message()
 
     #Car specific information
     if self.CP.carFingerprint == CAR.SMART_ROADSTER_COUPE:
-        ret.doorOpen = False #any([cp_body.vl["BODYCONTROL"]['RIGHT_DOOR'], cp_body.vl["BODYCONTROL"]['LEFT_DOOR']]) != 0
-        ret.seatbeltUnlatched = False
+        ret.doorOpen = any([cp_body.vl["BODYCONTROL"]['RIGHT_DOOR'], cp_body.vl["BODYCONTROL"]['LEFT_DOOR']]) != 0
+        ret.seatbeltUnlatched = False   #smart doesnt publish seatbelt on canbus
         ret.leftBlinker = bool(cp_body.vl["BODYCONTROL"]['LEFT_SIGNAL'])
         ret.rightBlinker = bool(cp_body.vl["BODYCONTROL"]['RIGHT_SIGNAL'])
         ret.espDisabled = bool(cp_body.vl["ABS"]['ESP_STATUS'])
@@ -57,7 +56,7 @@ class CarState(CarStateBase):
     ret.steeringAngleDeg = -(cp.vl["TOYOTA_STEERING_ANGLE_SENSOR1"]['TOYOTA_STEER_ANGLE'] + cp.vl["TOYOTA_STEERING_ANGLE_SENSOR1"]['TOYOTA_STEER_FRACTION'])
     ret.steeringRateDeg = -cp.vl["TOYOTA_STEERING_ANGLE_SENSOR1"]['TOYOTA_STEER_RATE']
 
-    #Steering information from smart standin ECU
+    #Steering information from custom smart ECU
     ret.steeringTorque = cp.vl["STEERING_STATUS"]['STEERING_TORQUE_DRIVER']
     ret.steeringTorqueEps = cp.vl["STEERING_STATUS"]['STEERING_TORQUE_EPS']
     ret.steeringPressed = abs(ret.steeringTorque) > STEER_THRESHOLD
@@ -104,8 +103,6 @@ class CarState(CarStateBase):
     self.oldSpeedUp = bool(self.buttonStates["accelCruise"])
 
     return ret
-
-
 
   @staticmethod
   def get_can_parser(CP):

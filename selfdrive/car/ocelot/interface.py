@@ -73,10 +73,6 @@ class CarInterface(CarInterfaceBase):
     #Brake maximum values
     ret.brakeMaxBP = [5., 20.]
     ret.brakeMaxV = [1., 0.9]
-    
-    #ret.stoppingBrakeRate = 0.16 # reach stopping target smoothly
-    #ret.startingBrakeRate = 2.0 # release brakes fast
-    #ret.startAccel = 1.2 # Accelerate from 0 faster
 
     return ret
 
@@ -96,7 +92,7 @@ class CarInterface(CarInterfaceBase):
     events = self.create_common_events(ret)
     if not ret.cruiseState.enabled:
       events.add(EventName.pcmDisable)
-    # Attempt OP engagement only on rising edge of stock ACC engagement.
+    # Attempt OP engagement only on rising edge of stock cruise engagement
     elif not self.cruise_enabled_prev:
       events.add(EventName.pcmEnable)
 
