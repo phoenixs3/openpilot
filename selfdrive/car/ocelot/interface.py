@@ -49,7 +49,7 @@ class CarInterface(CarInterfaceBase):
                                                                          tire_stiffness_factor=tire_stiffness_factor)
 
     ret.enableGasInterceptor = True
-    ret.stoppingControl = True      #should these be enabled for long control
+    ret.stoppingControl = True
     ret.enableCamera = True
     ret.openpilotLongitudinalControl = True
     ret.minEnableSpeed = -1.
@@ -67,7 +67,7 @@ class CarInterface(CarInterfaceBase):
     ret.longitudinalTuning.kiV = [0.3, 0.2]
 
     #Gas maximum values
-    ret.gasMaxBP = [0., 1., 35]
+    ret.gasMaxBP = [0., 2., 35]
     ret.gasMaxV = [0.2, 0.3, 0.4]
 
     #Brake maximum values
