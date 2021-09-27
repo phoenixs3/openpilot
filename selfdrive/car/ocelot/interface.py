@@ -49,7 +49,7 @@ class CarInterface(CarInterfaceBase):
                                                                          tire_stiffness_factor=tire_stiffness_factor)
 
     ret.enableGasInterceptor = True
-    ret.stoppingControl = True
+    #ret.stoppingControl = True
     ret.enableCamera = True
     ret.openpilotLongitudinalControl = True
     ret.minEnableSpeed = -1.
@@ -60,7 +60,7 @@ class CarInterface(CarInterfaceBase):
     
     #Longitudinal Proportional values
     ret.longitudinalTuning.kpBP = [0., 5., 35.]
-    ret.longitudinalTuning.kpV = [0.8, 0.6, 0.5]
+    ret.longitudinalTuning.kpV = [0.6, 0.5, 0.4]
     
     #Longitudinal Integral Values
     ret.longitudinalTuning.kiBP = [0., 55.]
