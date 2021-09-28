@@ -68,7 +68,7 @@ class CarInterface(CarInterfaceBase):
 
     #Gas maximum values
     ret.gasMaxBP = [0., 2., 35]
-    ret.gasMaxV = [0.2, 0.3, 0.4]
+    ret.gasMaxV = [0.23, 0.3, 0.4]
 
     #Brake maximum values
     ret.brakeMaxBP = [5., 20.]

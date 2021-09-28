@@ -10,7 +10,7 @@ class SteerLimitParams:
   STEER_STEP = 1                # how often we update the steer cmd
   STEER_DELTA_UP = 8            # torque increase per refresh, to max
   STEER_DELTA_DOWN = 10         # torque decrease per refresh
-  STEER_DRIVER_ALLOWANCE = 150  # allowed driver torque before start limiting
+  STEER_DRIVER_ALLOWANCE = 100  # allowed driver torque before start limiting
   STEER_DRIVER_MULTIPLIER = 10  # weight driver torque heavily
   STEER_DRIVER_FACTOR = 1
 
@@ -38,7 +38,7 @@ FINGERPRINTS = {
    }]
 }
 
-STEER_THRESHOLD = 70
+STEER_THRESHOLD = 60
 
 DBC = {
     CAR.SMART_ROADSTER_COUPE: dbc_dict('ocelot_can', 'ford_focus_adas', chassis_dbc = 'ocelot_smart_roadster_pt'),
