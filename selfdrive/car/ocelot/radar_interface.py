@@ -34,6 +34,7 @@ class RadarInterface(RadarInterfaceBase):
 
   def update(self, can_strings):
     if self.no_radar:
+      time.sleep(0.02)
       return super().update(None)
       #time.sleep(self.radar_ts)
       #time.sleep(0.015)
