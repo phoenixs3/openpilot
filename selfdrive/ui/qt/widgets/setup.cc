@@ -76,7 +76,7 @@ PrimeUserWidget::PrimeUserWidget(QWidget* parent) : QWidget(parent) {
   mainLayout = new QVBoxLayout;
   mainLayout->setMargin(30);
 
-  QLabel* commaPrime = new QLabel("COMMA PRIME");
+  QLabel* commaPrime = new QLabel("RETROPILOT");
   mainLayout->addWidget(commaPrime, 0, Qt::AlignTop);
 
   username = new QLabel();
@@ -85,7 +85,7 @@ PrimeUserWidget::PrimeUserWidget(QWidget* parent) : QWidget(parent) {
 
   mainLayout->addSpacing(100);
 
-  QLabel* commaPoints = new QLabel("COMMA POINTS");
+  QLabel* commaPoints = new QLabel("DEVICE ID");
   commaPoints->setStyleSheet(R"(
     color: #b8b8b8;
   )");
@@ -104,6 +104,7 @@ PrimeUserWidget::PrimeUserWidget(QWidget* parent) : QWidget(parent) {
 
   // set up API requests
   QString dongleId = QString::fromStdString(Params().get("DongleId"));
+  points->setText(dongleId);
   if (!dongleId.length()) {
     return;
   }
@@ -128,7 +129,7 @@ void PrimeUserWidget::replyFinished(const QString &response) {
   }
 
   username->setText(username_str);
-  points->setText(points_str);
+  //points->setText(points_str);
 }
 
 PrimeAdWidget::PrimeAdWidget(QWidget* parent) : QWidget(parent) {
@@ -165,7 +166,7 @@ SetupWidget::SetupWidget(QWidget* parent) : QFrame(parent) {
   QVBoxLayout* finishRegistationLayout = new QVBoxLayout;
   finishRegistationLayout->setMargin(30);
 
-  QLabel* registrationDescription = new QLabel("Pair your device with the comma connect app");
+  QLabel* registrationDescription = new QLabel("Server Offline");
   registrationDescription->setWordWrap(true);
   registrationDescription->setAlignment(Qt::AlignCenter);
   registrationDescription->setStyleSheet(R"(
@@ -175,7 +176,7 @@ SetupWidget::SetupWidget(QWidget* parent) : QFrame(parent) {
 
   finishRegistationLayout->addWidget(registrationDescription);
 
-  QPushButton* finishButton = new QPushButton("Finish setup");
+  QPushButton* finishButton = new QPushButton("Device Token");
   finishButton->setFixedHeight(200);
   finishButton->setStyleSheet(R"(
     border-radius: 30px;
@@ -195,7 +196,7 @@ SetupWidget::SetupWidget(QWidget* parent) : QFrame(parent) {
   QVBoxLayout* qrLayout = new QVBoxLayout;
 
   qrLayout->addSpacing(30);
-  QLabel* qrLabel = new QLabel("Scan with comma connect!");
+  QLabel* qrLabel = new QLabel("Scan for device token");
   qrLabel->setWordWrap(true);
   qrLabel->setAlignment(Qt::AlignHCenter);
   qrLabel->setStyleSheet(R"(

@@ -230,7 +230,7 @@ class DriverStatus():
     awareness_prev = self.awareness
 
     if self.face_detected and self.hi_stds * DT_DMON > _HI_STD_TIMEOUT and self.hi_std_alert_enabled:
-      events.add(EventName.driverMonitorLowAcc)
+      #events.add(EventName.driverMonitorLowAcc)
       self.hi_std_alert_enabled = False # only showed once until orange prompt resets it
 
     if (driver_attentive and self.face_detected and self.pose.low_std and self.awareness > 0):
