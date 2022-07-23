@@ -27,8 +27,8 @@ class CarState(CarStateBase):
     if self.CP.carFingerprint == CAR.SMART_ROADSTER_COUPE:
         ret.doorOpen = any([not(cp_body.vl["BODYCONTROL"]['RIGHT_DOOR']), not(cp_body.vl["BODYCONTROL"]['LEFT_DOOR'])]) == 1
         ret.seatbeltUnlatched = False   #smart doesnt publish seatbelt on canbus
-        ret.leftBlinker = bool(cp_body.vl["BODYCONTROL"]['LEFT_SIGNAL'])
-        ret.rightBlinker = bool(cp_body.vl["BODYCONTROL"]['RIGHT_SIGNAL'])
+        ret.leftBlinker, ret.rightBlinker = self.update_blinker(40, cp_body.vl["BODYCONTROL"]['LEFT_SIGNAL'] == 1,
+                                                                          cp_body.vl["BODYCONTROL"]['RIGHT_SIGNAL'] == 1)
         ret.espDisabled = bool(cp_body.vl["ABS"]['ESP_STATUS'])
         ret.wheelSpeeds.fl = cp_body.vl["SMARTROADSTERWHEELSPEEDS"]['WHEELSPEED_FL'] * CV.MPH_TO_MS
         ret.wheelSpeeds.fr = cp_body.vl["SMARTROADSTERWHEELSPEEDS"]['WHEELSPEED_FR'] * CV.MPH_TO_MS
