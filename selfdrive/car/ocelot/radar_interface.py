@@ -6,14 +6,11 @@ from selfdrive.car.ocelot.values import DBC
 from selfdrive.car.interfaces import RadarInterfaceBase
 from math import cos, sin
 
-DELPHI_MRR_RADAR_START_ADDR = 0x120
-DELPHI_MRR_RADAR_MSG_COUNT = 64
-
 RADAR_MSGS = list(range(0x120, 0x15F))
 
 def _create_radar_can_parser(car_fingerprint):
   msg_n = len(RADAR_MSGS)
-  signals = list(zip(['CAN_DET_RANGE'] * msg_n + ['CAN_DET_AZIMUTH'] * msg_n + ['CAN_DET_RANGE_RATE'] * msg_n + ['CAN_DET_VALID_LEVEL'] * msg_n + ['CAN_DET_AMPLITUDE_'] * msg_n + ['CAN_SCAN_INDEX_2LSB_'] * msg_n,
+  signals = list(zip(['CAN_DET_RANGE'] * msg_n + ['CAN_DET_AZIMUTH'] * msg_n + ['CAN_DET_RANGE_RATE'] * msg_n + ['CAN_DET_VALID_LEVEL'] * msg_n + ['CAN_DET_AMPLITUDE'] * msg_n + ['CAN_SCAN_INDEX_2LSB'] * msg_n,
                      RADAR_MSGS * 6,
                      [0] * msg_n + [0] * msg_n + [0] * msg_n + [0] * msg_n + [0] * msg_n + [0] * msg_n))
   checks = list(zip(RADAR_MSGS, [20]*msg_n))
@@ -66,7 +63,7 @@ class RadarInterface(RadarInterfaceBase):
     ret = car.RadarData.new_message()
     errors = []
     if not self.rcp.can_valid:
-      errors.append("canError")    #Test ignore errors for now
+      errors.append("canError")
     ret.errors = errors
 
     for ii in sorted(self.updated_messages):
