@@ -69,7 +69,7 @@ class RadarInterface(RadarInterfaceBase):
     for ii in sorted(self.updated_messages):
       cpt = self.rcp.vl[ii]
 
-      if cpt['CAN_DET_VALID_LEVEL'] > 0 and 0 < cpt['CAN_DET_AMPLITUDE_'] <= 15:
+      if cpt['CAN_DET_VALID_LEVEL'] > 0 and 0 < cpt['CAN_DET_AMPLITUDE'] <= 15:
         if ii not in self.pts:
           self.pts[ii] = car.RadarData.RadarPoint.new_message()
           self.pts[ii].trackId = self.track_id
