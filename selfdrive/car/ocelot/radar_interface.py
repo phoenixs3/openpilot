@@ -16,12 +16,12 @@ def _create_delphi_mrr_radar_can_parser(car_fingerprint):
   for i in range(1, DELPHI_MRR_RADAR_MSG_COUNT + 1):
     msg = f"MRR_Detection_{i:03d}"
     signals += [
-      (f"CAN_DET_VALID_LEVEL_{i:02d}", msg),
-      (f"CAN_DET_AZIMUTH_{i:02d}", msg),
-      (f"CAN_DET_RANGE_{i:02d}", msg),
-      (f"CAN_DET_RANGE_RATE_{i:02d}", msg),
-      (f"CAN_DET_AMPLITUDE_{i:02d}", msg),
-      (f"CAN_SCAN_INDEX_2LSB_{i:02d}", msg),
+      ("CAN_DET_VALID_LEVEL_{i:02d}", msg),
+      ("CAN_DET_AZIMUTH_{i:02d}", msg),
+      ("CAN_DET_RANGE_{i:02d}", msg),
+      ("CAN_DET_RANGE_RATE_{i:02d}", msg),
+      ("CAN_DET_AMPLITUDE_{i:02d}", msg),
+      ("CAN_SCAN_INDEX_2LSB_{i:02d}", msg),
     ]
     checks += [(msg, 20)]
 
@@ -71,11 +71,11 @@ class RadarInterface(RadarInterfaceBase):
 
   def _update_delphi_mrr(self):
     for ii in range(1, DELPHI_MRR_RADAR_MSG_COUNT + 1):
-      msg = self.rcp.vl[f"MRR_Detection_{ii:03d}"]
+      msg = self.rcp.vl["MRR_Detection_{ii:03d}"]
 
       # SCAN_INDEX rotates through 0..3 on each message
       # treat these as separate points
-      scanIndex = msg[f"CAN_SCAN_INDEX_2LSB_{ii:02d}"]
+      scanIndex = msg["CAN_SCAN_INDEX_2LSB_{ii:02d}"]
       i = (ii - 1) * 4 + scanIndex
 
       if i not in self.pts:
@@ -85,13 +85,13 @@ class RadarInterface(RadarInterfaceBase):
         self.pts[i].yvRel = float('nan')
         self.track_id += 1
 
-      valid = bool(msg[f"CAN_DET_VALID_LEVEL_{ii:02d}"])
-      amplitude = msg[f"CAN_DET_AMPLITUDE_{ii:02d}"]            # dBsm [-64|63]
+      valid = bool(msg["CAN_DET_VALID_LEVEL_{ii:02d}"])
+      amplitude = msg["CAN_DET_AMPLITUDE_{ii:02d}"]            # dBsm [-64|63]
 
       if valid and 0 < amplitude <= 15:
-        azimuth = msg[f"CAN_DET_AZIMUTH_{ii:02d}"]              # rad [-3.1416|3.13964]
-        dist = msg[f"CAN_DET_RANGE_{ii:02d}"]                   # m [0|255.984]
-        distRate = msg[f"CAN_DET_RANGE_RATE_{ii:02d}"]          # m/s [-128|127.984]
+        azimuth = msg["CAN_DET_AZIMUTH_{ii:02d}"]              # rad [-3.1416|3.13964]
+        dist = msg["CAN_DET_RANGE_{ii:02d}"]                   # m [0|255.984]
+        distRate = msg["CAN_DET_RANGE_RATE_{ii:02d}"]          # m/s [-128|127.984]
 
         # *** openpilot radar point ***
         self.pts[i].dRel = cos(azimuth) * dist                  # m from front of car
