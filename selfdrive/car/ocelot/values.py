@@ -41,5 +41,5 @@ FINGERPRINTS = {
 STEER_THRESHOLD = 60
 
 DBC = {
-    CAR.SMART_ROADSTER_COUPE: dbc_dict('ocelot_can', 'ford_focus_adas', chassis_dbc = 'ocelot_smart_roadster_pt'),
+    CAR.SMART_ROADSTER_COUPE: dbc_dict('ocelot_can', 'FORD_CADS', chassis_dbc = 'ocelot_smart_roadster_pt'),
 }
