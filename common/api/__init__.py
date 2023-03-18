@@ -34,7 +34,7 @@ class Api():
     
 
 def api_get(endpoint, method='GET', timeout=None, access_token=None, **params):
-  backend = "https://api.retropilot.org/"
+  backend = "https://pilot.openpilot.co.za/"
 
   headers = {}
   if access_token is not None:
