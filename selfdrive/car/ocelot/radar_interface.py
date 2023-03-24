@@ -61,22 +61,30 @@ class RadarInterface(RadarInterfaceBase):
 
     for ii in sorted(self.updated_messages):
 
+      # SCAN_INDEX rotates through 0..3 on each message
+      # treat these as separate points CAN_SCAN_INDEX_2LSB_
+      scanIndex = cpt['CAN_SCAN_INDEX_2LSB_']
+      i = (ii - 1) * 4 + scanIndex
+
       cpt = self.rcp.vl[ii]
 
-      if cpt['CAN_DET_VALID_LEVEL'] > 0 and 0 < cpt['CAN_DET_AMPLITUDE'] <= 15:
-        if ii not in self.pts:
-          self.pts[ii] = car.RadarData.RadarPoint.new_message()
-          self.pts[ii].trackId = self.track_id
-          self.track_id += 1
-          self.pts[ii].dRel = cos(cpt['CAN_DET_AZIMUTH']) * cpt['CAN_DET_RANGE']
-          self.pts[ii].yRel = -sin(cpt['CAN_DET_AZIMUTH']) * cpt['CAN_DET_RANGE']
-          self.pts[ii].vRel = cpt['CAN_DET_RANGE_RATE']
-          self.pts[ii].aRel = float('nan')
-          self.pts[ii].yvRel = float('nan')
-          self.pts[ii].measured = True
+      if i not in self.pts:
+        self.pts[i] = car.RadarData.RadarPoint.new_message()
+        self.pts[i].trackId = self.track_id
+        self.pts[i].aRel = float('nan')
+        self.pts[i].yvRel = float('nan')
+        self.track_id += 1
+
+      valid = bool(cpt['CAN_DET_VALID_LEVEL'])
+      amplitude = cpt['CAN_DET_AMPLITUDE']           # dBsm [-64|63]
+
+      if valid and 0 < amplitude <= 15:
+        self.pts[i].dRel = cos(cpt['CAN_DET_AZIMUTH']) * cpt['CAN_DET_RANGE']
+        self.pts[i].yRel = -sin(cpt['CAN_DET_AZIMUTH']) * cpt['CAN_DET_RANGE']
+        self.pts[i].vRel = cpt['CAN_DET_RANGE_RATE']
+      
       else:
-        if ii in self.pts:
-          del self.pts[ii]
+          del self.pts[i]
 
     ret.points = list(self.pts.values())
     self.updated_messages.clear()
