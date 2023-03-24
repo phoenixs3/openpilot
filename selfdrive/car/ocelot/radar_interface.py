@@ -40,13 +40,6 @@ class RadarInterface(RadarInterfaceBase):
       #return car.RadarData.new_message()
       #time.sleep(self.radar_ts)
       return super().update(None)
-      
-    
-    vls = self.rcp.update_strings(can_strings)
-    self.updated_messages.update(vls)
-
-    if self.trigger_msg not in self.updated_messages:
-      return None
 
     vls = self.rcp.update_strings(can_strings)
     self.updated_messages.update(vls)
@@ -67,6 +60,7 @@ class RadarInterface(RadarInterfaceBase):
     ret.errors = errors
 
     for ii in sorted(self.updated_messages):
+
       cpt = self.rcp.vl[ii]
 
       if cpt['CAN_DET_VALID_LEVEL'] > 0 and 0 < cpt['CAN_DET_AMPLITUDE'] <= 15:
