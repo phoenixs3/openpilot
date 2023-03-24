@@ -61,12 +61,12 @@ class RadarInterface(RadarInterfaceBase):
 
     for ii in sorted(self.updated_messages):
 
+      cpt = self.rcp.vl[ii]
+
       # SCAN_INDEX rotates through 0..3 on each message
       # treat these as separate points CAN_SCAN_INDEX_2LSB_
       scanIndex = cpt['CAN_SCAN_INDEX_2LSB_']
       i = (ii - 1) * 4 + scanIndex
-
-      cpt = self.rcp.vl[ii]
 
       if i not in self.pts:
         self.pts[i] = car.RadarData.RadarPoint.new_message()
