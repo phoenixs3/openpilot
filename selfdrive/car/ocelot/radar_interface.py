@@ -65,7 +65,7 @@ class RadarInterface(RadarInterfaceBase):
 
       # SCAN_INDEX rotates through 0..3 on each message
       # treat these as separate points CAN_SCAN_INDEX_2LSB_
-      scanIndex = cpt['CAN_SCAN_INDEX_2LSB_']
+      scanIndex = cpt['CAN_SCAN_INDEX_2LSB']
       i = (ii - 1) * 4 + scanIndex
 
       if i not in self.pts:
