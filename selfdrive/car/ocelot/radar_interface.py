@@ -32,7 +32,7 @@ class RadarInterface(RadarInterfaceBase):
     self.updated_messages = set()
 
     #Disable radar for vision only testing
-    self.no_radar = True
+    self.no_radar = False
 
   def update(self, can_strings):
     if self.no_radar:
