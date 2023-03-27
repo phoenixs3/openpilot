@@ -60,7 +60,7 @@ class CarInterface(CarInterfaceBase):
     
     #Longitudinal Proportional values
     ret.longitudinalTuning.kpBP = [0., 5., 35.]
-    ret.longitudinalTuning.kpV = [0.45, 0.35, 0.28]
+    ret.longitudinalTuning.kpV = [0.33, 0.30, 0.28]
     
     #Longitudinal Integral Values
     ret.longitudinalTuning.kiBP = [0., 55.]
