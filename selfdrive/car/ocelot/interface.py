@@ -34,11 +34,11 @@ class CarInterface(CarInterfaceBase):
     if candidate == CAR.SMART_ROADSTER_COUPE:
         ret.lateralTuning.init('pid')
         ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
-        ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.05], [0.008]]
+        ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.045], [0.008]]
         ret.lateralTuning.pid.kf = 0.   #was 0.00007818594
         ret.safetyParam = 100           #alloutput for now
         ret.wheelbase = 2.36
-        ret.steerRatio = 20
+        ret.steerRatio = 21
         tire_stiffness_factor = 0.444
         ret.mass = 810 + STD_CARGO_KG
         ret.steerRateCost = 1.
@@ -60,7 +60,7 @@ class CarInterface(CarInterfaceBase):
     
     #Longitudinal Proportional values
     ret.longitudinalTuning.kpBP = [0., 5., 35.]
-    ret.longitudinalTuning.kpV = [0.45, 0.35, 0.3]
+    ret.longitudinalTuning.kpV = [0.45, 0.35, 0.28]
     
     #Longitudinal Integral Values
     ret.longitudinalTuning.kiBP = [0., 55.]
