@@ -292,7 +292,7 @@ static void ui_draw_driver_view(UIState *s) {
   const int center_x = is_rhd ? rect.right() - face_radius - bdr_s * 2 : rect.x + face_radius + bdr_s * 2;
   const int center_y = rect.bottom() - face_radius - bdr_s * 2.5;
   ui_draw_circle_image(s, center_x, center_y, face_radius, "driver_face", face_detected);
-  ui_draw_circle_image(s, center_x + 200, center_y, face_radius, "brake_disk", s->scene.brakeLights);
+  //ui_draw_circle_image(s, center_x + 200, center_y, face_radius, "brake_disk", s->scene.brakeLights);
 }
 
 static void ui_draw_vision_header(UIState *s) {
