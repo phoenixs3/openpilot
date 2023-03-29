@@ -250,9 +250,9 @@ static void ui_draw_vision_face(UIState *s) {
 
 /*
 static void ui_draw_vision_brake(UIState *s) {
-  const int radius = 80;
-  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 250;
-  const int center_y = s->viz_rect.bottom() - footer_h / 2 + 50;
+  const int radius = 96;
+  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 200;
+  const int center_y = s->viz_rect.bottom() - footer_h / 2;
   ui_draw_circle_image(s, center_x, center_y, radius, "brake_disk", s->scene.brakeLights);
 }*/
 
@@ -308,7 +308,7 @@ static void ui_draw_vision_header(UIState *s) {
   ui_draw_vision_event(s);
 }
 
-/*
+
 //Dev UI Debug parameters
 static int bb_ui_draw_measure(UIState *s,  const char* bb_value, const char* bb_uom, const char* bb_label,
   int bb_x, int bb_y, int bb_uom_dx,
@@ -594,10 +594,10 @@ static void bb_ui_draw_UI(UIState *s){
 //BB END: functions added for the display of various items
 static void ui_draw_vision_footer(UIState *s) {
   ui_draw_vision_face(s);
-  ui_draw_vision_brake(s);
+  //ui_draw_vision_brake(s);
   bb_ui_draw_UI(s);
 }
-*/
+
 
 static void ui_draw_vision_frame(UIState *s) {
   // Draw video frames
@@ -620,7 +620,7 @@ static void ui_draw_vision(UIState *s) {
     // Set Speed, Current Speed, Status/Events
     ui_draw_vision_header(s);
     if (s->scene.controls_state.getAlertSize() == cereal::ControlsState::AlertSize::NONE) {
-      ui_draw_vision_face(s);
+      ui_draw_vision_footer(s);
     }
   } else {
     ui_draw_driver_view(s);
@@ -785,6 +785,7 @@ void ui_nvg_init(UIState *s) {
   std::vector<std::pair<const char *, const char *>> images = {
     {"wheel", "../assets/img_chffr_wheel.png"},
     {"driver_face", "../assets/img_driver_face.png"},
+    {"brake_disk", "../assets/img_brake_disc.png"},
   };
   for (auto [name, file] : images) {
     s->images[name] = nvgCreateImage(s->vg, file, 1);
