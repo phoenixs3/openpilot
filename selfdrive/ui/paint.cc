@@ -243,7 +243,7 @@ static void ui_draw_vision_event(UIState *s) {
 
 static void ui_draw_vision_face(UIState *s) {
   const int radius = 96;
-  const int center_x = s->viz_rect.x + radius + (bdr_s * 2);
+  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 250;
   const int center_y = s->viz_rect.bottom() - footer_h / 2;
   ui_draw_circle_image(s, center_x, center_y, radius, "driver_face", s->scene.dmonitoring_state.getIsActiveMode());
 }
@@ -251,7 +251,7 @@ static void ui_draw_vision_face(UIState *s) {
 
 static void ui_draw_vision_brake(UIState *s) {
   const int radius = 96;
-  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 250;
+  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 500;
   const int center_y = s->viz_rect.bottom() - footer_h / 2;
   ui_draw_circle_image(s, center_x, center_y, radius, "brake_disk", s->scene.brakeLights);
 }
@@ -291,8 +291,8 @@ static void ui_draw_driver_view(UIState *s) {
   const int face_radius = 85;
   const int center_x = is_rhd ? rect.right() - face_radius - bdr_s * 2 : rect.x + face_radius + bdr_s * 2;
   const int center_y = rect.bottom() - face_radius - bdr_s * 2.5;
-  ui_draw_circle_image(s, center_x, center_y, face_radius, "driver_face", face_detected);
-  ui_draw_circle_image(s, center_x + 250, center_y, face_radius, "brake_disk", s->scene.brakeLights);
+  ui_draw_circle_image(s, center_x + 250, center_y, face_radius, "driver_face", face_detected);
+  ui_draw_circle_image(s, center_x + 500, center_y, face_radius, "brake_disk", s->scene.brakeLights);
 }
 
 static void ui_draw_vision_header(UIState *s) {
@@ -307,7 +307,6 @@ static void ui_draw_vision_header(UIState *s) {
   ui_draw_vision_speed(s);
   ui_draw_vision_event(s);
 }
-
 
 //Dev UI Debug parameters
 static int bb_ui_draw_measure(UIState *s,  const char* bb_value, const char* bb_uom, const char* bb_label,
@@ -344,6 +343,7 @@ static int bb_ui_draw_measure(UIState *s,  const char* bb_value, const char* bb_
   }
   return (int)((bb_valueFontSize + bb_labelFontSize)*2.5) + 5;
 }
+
 static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) {
   const UIScene *scene = &s->scene;
   int bb_rx = bb_x + (int)(bb_w/2);
@@ -356,13 +356,34 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
   int uom_fontSize = 15;
   int bb_uom_dx =  (int)(bb_w /2 - uom_fontSize*2.5) ;
   //CPU TEMP
-    if (true) {
+  if (true) {
     char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     snprintf(val_str, sizeof(val_str), "%.0f%s", round(s->scene.deviceState.getCpuTempC()[0]),"°C");
     snprintf(uom_str, sizeof(uom_str), "%d%%", (s->scene.deviceState.getCpuUsagePercent()));
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "CPU TEMP",
+        bb_rx, bb_ry, bb_uom_dx,
+        val_color, lab_color, uom_color,
+        value_fontSize, label_fontSize, uom_fontSize );
+    bb_ry = bb_y + bb_h;
+  }
+  //coolantTemp
+  if (true) {
+    char val_str[16];
+    char uom_str[6];
+    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
+      //show Orange if more than 6 degrees
+      //show red if  more than 12 degrees
+      if((s->scene.coolantTemp) > 60) {
+        val_color = nvgRGBA(255, 188, 3, 200);
+      }
+      if((s->scene.coolantTemp) > 90) {
+        val_color = nvgRGBA(255, 0, 0, 200);
+      }
+      snprintf(val_str, sizeof(val_str), "%.0f%s",s->scene.coolantTemp , "°C");
+      snprintf(uom_str, sizeof(uom_str), "");
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "COOLANT",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
@@ -436,6 +457,7 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
     nvgStrokeWidth(s->vg, 6);
     nvgStroke(s->vg);
 }
+
 static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w ) {
   const UIScene *scene = &s->scene;
   int bb_rx = bb_x + (int)(bb_w/2);
@@ -571,6 +593,23 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
+
+  //boostPressure
+  if (true) {
+    char val_str[16];
+    char uom_str[4];
+    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
+    if(s->scene.boostPressure < 0) {
+      snprintf(val_str, sizeof(val_str), "0");
+    }
+    else {snprintf(val_str, sizeof(val_str), "%d", (s->scene.boostPressure));}
+    snprintf(uom_str, sizeof(uom_str), "bar");
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "BOOST PRES",
+        bb_rx, bb_ry, bb_uom_dx,
+        val_color, lab_color, uom_color,
+        value_fontSize, label_fontSize, uom_fontSize );
+    bb_ry = bb_y + bb_h;
+  }
   //finally draw the frame
   bb_h += 20;
   nvgBeginPath(s->vg);
@@ -584,10 +623,10 @@ static void bb_ui_draw_UI(UIState *s){
   //const UIScene *scene = &s->scene;
   const int bb_dml_w = 180;
   const int bb_dml_x = (s->viz_rect.x + (bdr_s * 2));
-  const int bb_dml_y = (s->viz_rect.y + (bdr_s * 1.5)) + 220;
+  const int bb_dml_y = (s->viz_rect.y + (bdr_s * 1.5)) + 250;
   const int bb_dmr_w = 180;
   const int bb_dmr_x = s->viz_rect.x + s->viz_rect.w - bb_dmr_w - (bdr_s * 2);
-  const int bb_dmr_y = (s->viz_rect.y + (bdr_s * 1.5)) + 220;
+  const int bb_dmr_y = (s->viz_rect.y + (bdr_s * 1.5)) + 250;
   bb_ui_draw_measures_right(s, bb_dml_x, bb_dml_y, bb_dml_w);
   bb_ui_draw_measures_left(s, bb_dmr_x, bb_dmr_y-20, bb_dmr_w);
 }
