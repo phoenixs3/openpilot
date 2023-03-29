@@ -381,7 +381,7 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
       if((s->scene.coolantTemp) > 90) {
         val_color = nvgRGBA(255, 0, 0, 200);
       }
-      snprintf(val_str, sizeof(val_str), "%d",s->scene.coolantTemp , "°C");
+      snprintf(val_str, sizeof(val_str), "%d%s", (s->scene.coolantTemp) , "°C");
       snprintf(uom_str, sizeof(uom_str), "");
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "COOLANT",
         bb_rx, bb_ry, bb_uom_dx,
