@@ -618,7 +618,7 @@ static void ui_draw_vision(UIState *s) {
     // Set Speed, Current Speed, Status/Events
     ui_draw_vision_header(s);
     if (s->scene.controls_state.getAlertSize() == cereal::ControlsState::AlertSize::NONE) {
-      ui_draw_vision_footer(s);
+      ui_draw_vision_face(s);
     }
   } else {
     ui_draw_driver_view(s);
