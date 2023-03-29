@@ -190,6 +190,8 @@ struct CarState {
   rightBlindspot @34 :Bool; # Is there something blocking the right lane change
 
   engineRPM @37 :Float32;
+  coolantTemp @38 :Float32;
+  boostPressure @39 :Float32;
 
   struct WheelSpeeds {
     # optional wheel speeds
