@@ -251,7 +251,7 @@ static void ui_draw_vision_face(UIState *s) {
 
 static void ui_draw_vision_brake(UIState *s) {
   const int radius = 96;
-  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 200;
+  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 250;
   const int center_y = s->viz_rect.bottom() - footer_h / 2;
   ui_draw_circle_image(s, center_x, center_y, radius, "brake_disk", s->scene.brakeLights);
 }
@@ -292,7 +292,7 @@ static void ui_draw_driver_view(UIState *s) {
   const int center_x = is_rhd ? rect.right() - face_radius - bdr_s * 2 : rect.x + face_radius + bdr_s * 2;
   const int center_y = rect.bottom() - face_radius - bdr_s * 2.5;
   ui_draw_circle_image(s, center_x, center_y, face_radius, "driver_face", face_detected);
-  ui_draw_circle_image(s, center_x + 200, center_y, face_radius, "brake_disk", s->scene.brakeLights);
+  ui_draw_circle_image(s, center_x + 250, center_y, face_radius, "brake_disk", s->scene.brakeLights);
 }
 
 static void ui_draw_vision_header(UIState *s) {
@@ -407,8 +407,8 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
     char val_str[16];
     char uom_str[4];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200); 
-    snprintf(val_str, sizeof(val_str), "%d", (int)(10 * s->scene.car_state.getSteeringTorqueEps()));
-    snprintf(uom_str, sizeof(uom_str), "dNm");
+    snprintf(val_str, sizeof(val_str), "%d", (int)(s->scene.car_state.getSteeringTorqueEps()));
+    snprintf(uom_str, sizeof(uom_str), "Nm");
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "EPS TRQ",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,

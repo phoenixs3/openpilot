@@ -37,6 +37,8 @@ class CarState(CarStateBase):
         can_gear = int(cp_body.vl["GEAR_PACKET"]['GEAR'])
         ret.gearShifter = self.parse_gear_shifter(self.shifter_values.get(can_gear, None))
         self.engineRPM = cp_body.vl["GEAR_PACKET"]["RPM"]
+        self.coolantTemp = cp_body.vl["GEAR_PACKET"]["COOLANTTEMPERATURE"]
+        self.boostPressure = cp_body.vl["SMART_MEG_02"]["MANIFOLDPRESSURE"]
 
     #iBooster data
     ret.brakePressed = bool(cp.vl["BRAKE_STATUS"]['DRIVER_BRAKE_APPLIED'])
@@ -146,6 +148,7 @@ class CarState(CarStateBase):
       ("ABS", 10),
       ("SMARTROADSTERWHEELSPEEDS", 10),
       ("GEAR_PACKET", 10),
+      ("SMART_MEG_02", 10),
     ]
 
     if CP.carFingerprint == CAR.SMART_ROADSTER_COUPE:
@@ -161,5 +164,7 @@ class CarState(CarStateBase):
         signals.append(("BRAKEPEDAL", "ABS",0))
         signals.append(("GEAR","GEAR_PACKET", 0))
         signals.append(("RPM","GEAR_PACKET",0))
+        signals.append(("COOLANTTEMPERATURE","GEAR_PACKET",0))
+        signals.append(("MANIFOLDPRESSURE","SMART_MEG_02",0))
 
     return CANParser(DBC[CP.carFingerprint]['chassis'], signals, checks, 0)
