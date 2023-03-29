@@ -309,14 +309,14 @@ static void ui_draw_vision_header(UIState *s) {
 
 //Dev UI Debug parameters
 static int bb_ui_draw_measure(UIState *s,  const char* bb_value, const char* bb_uom, const char* bb_label,
-    int bb_x, int bb_y, int bb_uom_dx,
-    NVGcolor bb_valueColor, NVGcolor bb_labelColor, NVGcolor bb_uomColor,
-    int bb_valueFontSize, int bb_labelFontSize, int bb_uomFontSize )  {
+  int bb_x, int bb_y, int bb_uom_dx,
+  NVGcolor bb_valueColor, NVGcolor bb_labelColor, NVGcolor bb_uomColor,
+  int bb_valueFontSize, int bb_labelFontSize, int bb_uomFontSize )  {
   nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
   int dx = 0;
   if (strlen(bb_uom) > 0) {
     dx = (int)(bb_uomFontSize*2.5/2);
-   }
+  }
   //print value
   nvgFontFace(s->vg, "sans-semibold");
   nvgFontSize(s->vg, bb_valueFontSize*2.5);
@@ -594,7 +594,6 @@ static void ui_draw_vision_footer(UIState *s) {
   ui_draw_vision_face(s);
   ui_draw_vision_brake(s);
   bb_ui_draw_UI(s);
-  screen_draw_button(s);
 }
 
 
