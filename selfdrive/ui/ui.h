@@ -81,18 +81,18 @@ typedef struct UIScene {
 
   cereal::PandaState::PandaType pandaType;
 
-  int lead_status;
-  float lead_d_rel;
-  float lead_v_rel;
-  float angleSteers;
-  bool brakeLights;
-  float angleSteersDes;
-  bool recording;
-  float gpsAccuracyUblox;
-  float altitudeUblox;
-  int engineRPM;
-  int dashcamX;
-  int dashcamY;
+  //int lead_status;
+  //float lead_d_rel;
+  //float lead_v_rel;
+  //float angleSteers;
+  //bool brakeLights;
+  //float angleSteersDes;
+  //bool recording;
+  //float gpsAccuracyUblox;
+  //float altitudeUblox;
+  //int engineRPM;
+  //int dashcamX;
+  //int dashcamY;
 
   cereal::DeviceState::Reader deviceState;
   cereal::RadarState::LeadData::Reader lead_data[2];
