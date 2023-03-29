@@ -307,6 +307,7 @@ static void ui_draw_vision_header(UIState *s) {
   ui_draw_vision_event(s);
 }
 
+/*
 //Dev UI Debug parameters
 static int bb_ui_draw_measure(UIState *s,  const char* bb_value, const char* bb_uom, const char* bb_label,
   int bb_x, int bb_y, int bb_uom_dx,
@@ -595,7 +596,7 @@ static void ui_draw_vision_footer(UIState *s) {
   ui_draw_vision_brake(s);
   bb_ui_draw_UI(s);
 }
-
+*/
 
 static void ui_draw_vision_frame(UIState *s) {
   // Draw video frames
@@ -619,6 +620,7 @@ static void ui_draw_vision(UIState *s) {
     ui_draw_vision_header(s);
     if (s->scene.controls_state.getAlertSize() == cereal::ControlsState::AlertSize::NONE) {
       ui_draw_vision_face(s);
+      ui_draw_vision_brake(s);
     }
   } else {
     ui_draw_driver_view(s);
