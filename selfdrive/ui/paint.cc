@@ -252,7 +252,7 @@ static void ui_draw_vision_brake(UIState *s) {
   const int radius = 80;
   const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 250;
   const int center_y = s->viz_rect.bottom() - footer_h / 2 + 50;
-  ui_draw_circle_image(s, center_x, center_y, radius, "brake_disk", s->scene.brakeLights);
+  ui_draw_circle_image(s, center_x, center_y, radius, "brake_disk", s->scene.dmonitoring_state.getIsActiveMode());
 }
 
 static void ui_draw_driver_view(UIState *s) {
