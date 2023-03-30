@@ -141,7 +141,7 @@ static void update_state(UIState *s) {
     s->scene.brakeLights = scene.car_state.getBrakeLights();
     s->scene.engineRPM = scene.car_state.getEngineRPM();
     s->scene.coolantTemp = scene.car_state.getCoolantTemp();
-    s->scene.boostPressure = scene.car_state.getboostPressure();
+    s->scene.boostPressure = scene.car_state.getBoostPressure();
   }
   if (sm.updated("radarState")) {
     std::optional<cereal::ModelDataV2::XYZTData::Reader> line;
