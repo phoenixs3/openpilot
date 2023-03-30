@@ -82,7 +82,7 @@ OffroadHome::OffroadHome(QWidget* parent) : QFrame(parent) {
   header_layout->addWidget(alert_notification, 0, Qt::AlignHCenter | Qt::AlignRight);
 
   std::string brand = Params().getBool("Passive") ? "dashcam" : "openpilot";
-  QLabel* version = new QLabel(QString::fromStdString(brand + " v0.8.4" ));
+  QLabel* version = new QLabel(QString::fromStdString(brand + " v0.8.4 Smart Roadster" ));
   version->setStyleSheet(R"(font-size: 55px;)");
   header_layout->addWidget(version, 0, Qt::AlignHCenter | Qt::AlignRight);
 

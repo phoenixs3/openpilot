@@ -17,6 +17,8 @@ class CarState(CarStateBase):
     self.oldSpeedUp = False
     self.oldSpeedDn = False
     self.engineRPM = 0
+    self.coolantTemp = 0
+    self.boostPressure = 0
     self.setSpeed = 10
     self.buttonStates = BUTTON_STATES.copy()
 
