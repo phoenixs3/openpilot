@@ -605,9 +605,9 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     if(s->scene.boostPressure < 0) {
       snprintf(val_str, sizeof(val_str), "0");
     }
-    else {snprintf(val_str, sizeof(val_str), "%.0f", round(s->scene.boostPressure));}
+    else {snprintf(val_str, sizeof(val_str), "%.0f", (s->scene.boostPressure));}
     snprintf(uom_str, sizeof(uom_str), "bar");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "BOOST PRES",
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "BOOST",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
