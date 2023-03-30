@@ -92,7 +92,7 @@ typedef struct UIScene {
   float altitudeUblox;
   int engineRPM;
   int coolantTemp;
-  int boostPressure;
+  float boostPressure;
   int dashcamX;
   int dashcamY;
 
