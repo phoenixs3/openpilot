@@ -373,8 +373,12 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
     char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-      //show Orange if more than 6 degrees
-      //show red if  more than 12 degrees
+      //show blue if less than 25 degrees
+      //show Orange if more than 60 degrees
+      //show red if  more than 90 degrees
+      if((s->scene.coolantTemp) < 25) {
+        val_color = nvgRGBA(0, 50, 255, 200);
+      }
       if((s->scene.coolantTemp) > 60) {
         val_color = nvgRGBA(255, 188, 3, 200);
       }
@@ -593,7 +597,6 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
-
   //boostPressure
   if (true) {
     char val_str[16];
@@ -602,7 +605,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     if(s->scene.boostPressure < 0) {
       snprintf(val_str, sizeof(val_str), "0");
     }
-    else {snprintf(val_str, sizeof(val_str), "%d", (s->scene.boostPressure));}
+    else {snprintf(val_str, sizeof(val_str), "%.0f", round((s->scene.boostPressure)[0]));}
     snprintf(uom_str, sizeof(uom_str), "bar");
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "BOOST PRES",
         bb_rx, bb_ry, bb_uom_dx,
@@ -613,21 +616,21 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
   //finally draw the frame
   bb_h += 20;
   nvgBeginPath(s->vg);
-    nvgRoundedRect(s->vg, bb_x, bb_y, bb_w, bb_h, 20);
-    nvgStrokeColor(s->vg, nvgRGBA(255,255,255,80));
-    nvgStrokeWidth(s->vg, 6);
-    nvgStroke(s->vg);
+  nvgRoundedRect(s->vg, bb_x, bb_y, bb_w, bb_h, 20);
+  nvgStrokeColor(s->vg, nvgRGBA(255,255,255,80));
+  nvgStrokeWidth(s->vg, 6);
+  nvgStroke(s->vg);
 }
 
 static void bb_ui_draw_UI(UIState *s){
   //const UIScene *scene = &s->scene;
   const int bb_dml_w = 180;
   const int bb_dml_x = (s->viz_rect.x + (bdr_s * 2));
-  const int bb_dml_y = (s->viz_rect.y + (bdr_s * 1.5)) + 250;
+  const int bb_dml_y = (s->viz_rect.y + (bdr_s * 1.5)) + 242;
   const int bb_dmr_w = 180;
   const int bb_dmr_x = s->viz_rect.x + s->viz_rect.w - bb_dmr_w - (bdr_s * 2);
-  const int bb_dmr_y = (s->viz_rect.y + (bdr_s * 1.5)) + 250;
-  bb_ui_draw_measures_right(s, bb_dml_x, bb_dml_y, bb_dml_w);
+  const int bb_dmr_y = (s->viz_rect.y + (bdr_s * 1.5)) + 242;
+  bb_ui_draw_measures_right(s, bb_dml_x, bb_dml_y-20, bb_dml_w);
   bb_ui_draw_measures_left(s, bb_dmr_x, bb_dmr_y-20, bb_dmr_w);
 }
 //BB END: functions added for the display of various items
