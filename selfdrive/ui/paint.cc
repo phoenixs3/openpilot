@@ -373,16 +373,16 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
     char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-      //show blue if less than 25 degrees
-      //show Orange if more than 60 degrees
-      //show red if  more than 90 degrees
-      if((s->scene.coolantTemp) < 25) {
-        val_color = nvgRGBA(0, 50, 255, 200);
+      if((s->scene.coolantTemp) < 40) {         //blue
+        val_color = nvgRGBA(25, 65, 132, 200);
       }
-      if((s->scene.coolantTemp) > 60) {
+      if((s->scene.coolantTemp) > 60) {         //white
+        val_color = nvgRGBA(255, 255, 255, 200);
+      }
+      if((s->scene.coolantTemp) > 85) {         //orange
         val_color = nvgRGBA(255, 188, 3, 200);
       }
-      if((s->scene.coolantTemp) > 90) {
+      if((s->scene.coolantTemp) > 90) {         //red
         val_color = nvgRGBA(255, 0, 0, 200);
       }
       snprintf(val_str, sizeof(val_str), "%d%s", (s->scene.coolantTemp) , "°C");
@@ -432,8 +432,8 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
     char val_str[16];
     char uom_str[4];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200); 
-    snprintf(val_str, sizeof(val_str), "%d", (int)(s->scene.car_state.getSteeringTorqueEps()));
-    snprintf(uom_str, sizeof(uom_str), "Nm");
+    snprintf(val_str, sizeof(val_str), "%d", (int)(s->scene.car_state.getSteeringTorqueEps()*0.39));
+    snprintf(uom_str, sizeof(uom_str), "%");
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "EPS TRQ",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
@@ -538,12 +538,12 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-      //show Orange if more than 6 degrees
-      //show red if  more than 12 degrees
-      if(((s->scene.angleSteers) < -6) || ((s->scene.angleSteers) > 6)) {
+      //show Orange if more than 90 degrees
+      //show red if  more than 200 degrees
+      if(((s->scene.angleSteers) < -90) || ((s->scene.angleSteers) > 90)) {
         val_color = nvgRGBA(255, 188, 3, 200);
       }
-      if(((s->scene.angleSteers) < -12) || ((s->scene.angleSteers) > 12)) {
+      if(((s->scene.angleSteers) < -200) || ((s->scene.angleSteers) > 200)) {
         val_color = nvgRGBA(255, 0, 0, 200);
       }
       // steering is in degrees
@@ -561,12 +561,12 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     if (scene->controls_state.getEnabled()) {
-      //show Orange if more than 6 degrees
-      //show red if  more than 12 degrees
-      if(((s->scene.angleSteersDes) < -6) || ((s->scene.angleSteersDes) > 6)) {
+      //show Orange if more than 20 degrees
+      //show red if  more than 30 degrees
+      if(((s->scene.angleSteersDes) < -20) || ((s->scene.angleSteersDes) > 20)) {
         val_color = nvgRGBA(255, 188, 3, 200);
       }
-      if(((s->scene.angleSteersDes) < -12) || ((s->scene.angleSteersDes) > 12)) {
+      if(((s->scene.angleSteersDes) < -30) || ((s->scene.angleSteersDes) > 30)) {
         val_color = nvgRGBA(255, 0, 0, 200);
       }
       // steering is in degrees
@@ -586,6 +586,12 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     char val_str[16];
     char uom_str[4];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
+    if((s->scene.engineRPM) > 5000) {
+        val_color = nvgRGBA(255, 188, 3, 200);
+    }
+    if((s->scene.engineRPM) > 6200) {
+        val_color = nvgRGBA(255, 0, 0, 200);
+    }
     if(s->scene.engineRPM == 0) {
       snprintf(val_str, sizeof(val_str), "OFF");
     }
@@ -602,10 +608,16 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     char val_str[16];
     char uom_str[4];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    if(s->scene.boostPressure < 0) {
-      snprintf(val_str, sizeof(val_str), "0");
+    if((s->scene.boostPressure) > 1.0) {
+        val_color = nvgRGBA(255, 188, 3, 200);
     }
-    else {snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.boostPressure / 10));}
+    if((s->scene.boostPressure) > 1.4) {
+        val_color = nvgRGBA(255, 0, 0, 200);
+    }
+    if(s->scene.boostPressure < 0) {
+      snprintf(val_str, sizeof(val_str), "0.00");
+    }
+    else {snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.boostPressure));}
     snprintf(uom_str, sizeof(uom_str), "bar");
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "BOOST",
         bb_rx, bb_ry, bb_uom_dx,
