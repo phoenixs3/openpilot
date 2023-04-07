@@ -433,7 +433,7 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
     char uom_str[4];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200); 
     snprintf(val_str, sizeof(val_str), "%d", (int)(s->scene.car_state.getSteeringTorqueEps()*0.39));
-    snprintf(uom_str, sizeof(uom_str), "%");
+    snprintf(uom_str, sizeof(uom_str), "%%");
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "EPS TRQ",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
