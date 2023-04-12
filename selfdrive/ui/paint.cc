@@ -202,7 +202,7 @@ static void ui_draw_vision_maxspeed(UIState *s) {
   const bool is_cruise_set = maxspeed != 0 && maxspeed != SET_SPEED_NA;
   if (is_cruise_set && !s->scene.is_metric) { maxspeed *= 0.6225; }
 
-  const Rect rect = {s->viz_rect.x + (bdr_s * 2), int(s->viz_rect.y + (bdr_s * 1.5)), 184, 202};
+  const Rect rect = {s->viz_rect.x + (bdr_s * 2) + 250, int(s->viz_rect.y + (bdr_s * 1.5)), 184, 202};
   ui_fill_rect(s->vg, rect, COLOR_BLACK_ALPHA(100), 30.);
   ui_draw_rect(s->vg, rect, COLOR_WHITE_ALPHA(100), 10, 20.);
 
@@ -228,14 +228,14 @@ static void ui_draw_vision_event(UIState *s) {
   if (s->scene.controls_state.getEngageable()) {
     // draw steering wheel
     const int radius = 96;
-    const int center_x = s->viz_rect.right() - radius - bdr_s * 2;
+    const int center_x = s->viz_rect.right() - radius - bdr_s * 2 - 250;
     const int center_y = s->viz_rect.y + radius  + (bdr_s * 1.5);
     if (s->status == 0){
-      ui_draw_circle_image(s, center_x, center_y, radius, "wheel", nvgRGBA(15, 80, 251, 255), 1.0f);
+      ui_draw_circle_image(s, center_x, center_y, radius, "wheel", nvgRGBA(150, 150, 150, 255), 1.0f);  //Engagable
     } else if (s->status == 1){
-      ui_draw_circle_image(s, center_x, center_y, radius, "wheel", nvgRGBA(44, 190, 102, 255), 1.0f);
+      ui_draw_circle_image(s, center_x, center_y, radius, "wheel", nvgRGBA(15, 80, 251, 255), 1.0f);    //Engaged
     } else {
-      ui_draw_circle_image(s, center_x, center_y, radius, "wheel", bg_colors[s->status], 1.0f);
+      ui_draw_circle_image(s, center_x, center_y, radius, "wheel", bg_colors[s->status], 1.0f);         //Alert Color
     }
 
   }
@@ -243,7 +243,7 @@ static void ui_draw_vision_event(UIState *s) {
 
 static void ui_draw_vision_face(UIState *s) {
   const int radius = 96;
-  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 250;
+  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 1000;
   const int center_y = s->viz_rect.bottom() - footer_h / 2;
   ui_draw_circle_image(s, center_x, center_y, radius, "driver_face", s->scene.dmonitoring_state.getIsActiveMode());
 }
@@ -251,7 +251,7 @@ static void ui_draw_vision_face(UIState *s) {
 
 static void ui_draw_vision_brake(UIState *s) {
   const int radius = 96;
-  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 500;
+  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 250;
   const int center_y = s->viz_rect.bottom() - footer_h / 2;
   ui_draw_circle_image(s, center_x, center_y, radius, "brake_disk", s->scene.brakeLights);
 }
@@ -291,8 +291,8 @@ static void ui_draw_driver_view(UIState *s) {
   const int face_radius = 85;
   const int center_x = is_rhd ? rect.right() - face_radius - bdr_s * 2 : rect.x + face_radius + bdr_s * 2;
   const int center_y = rect.bottom() - face_radius - bdr_s * 2.5;
-  ui_draw_circle_image(s, center_x + 250, center_y, face_radius, "driver_face", face_detected);
-  ui_draw_circle_image(s, center_x + 500, center_y, face_radius, "brake_disk", s->scene.brakeLights);
+  ui_draw_circle_image(s, center_x + 1000, center_y, face_radius, "driver_face", face_detected);
+  ui_draw_circle_image(s, center_x + 250, center_y, face_radius, "brake_disk", s->scene.brakeLights);
 }
 
 static void ui_draw_vision_header(UIState *s) {
@@ -638,12 +638,12 @@ static void bb_ui_draw_UI(UIState *s){
   //const UIScene *scene = &s->scene;
   const int bb_dml_w = 180;
   const int bb_dml_x = (s->viz_rect.x + (bdr_s * 2));
-  const int bb_dml_y = (s->viz_rect.y + (bdr_s * 1.5)) + 242;
+  const int bb_dml_y = (s->viz_rect.y + (bdr_s * 1.5)) + 10;
   const int bb_dmr_w = 180;
   const int bb_dmr_x = s->viz_rect.x + s->viz_rect.w - bb_dmr_w - (bdr_s * 2);
-  const int bb_dmr_y = (s->viz_rect.y + (bdr_s * 1.5)) + 242;
-  bb_ui_draw_measures_right(s, bb_dml_x, bb_dml_y-20, bb_dml_w);
-  bb_ui_draw_measures_left(s, bb_dmr_x, bb_dmr_y-20, bb_dmr_w);
+  const int bb_dmr_y = (s->viz_rect.y + (bdr_s * 1.5)) + 10;
+  bb_ui_draw_measures_right(s, bb_dmr_x, bb_dmr_y-20, bb_dmr_w);
+  bb_ui_draw_measures_left(s, bb_dml_x, bb_dml_y-20, bb_dml_w);
 }
 //BB END: functions added for the display of various items
 static void ui_draw_vision_footer(UIState *s) {
@@ -651,7 +651,6 @@ static void ui_draw_vision_footer(UIState *s) {
   ui_draw_vision_brake(s);
   bb_ui_draw_UI(s);
 }
-
 
 static void ui_draw_vision_frame(UIState *s) {
   // Draw video frames
