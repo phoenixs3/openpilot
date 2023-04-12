@@ -242,7 +242,7 @@ static void ui_draw_vision_event(UIState *s) {
 
 static void ui_draw_vision_face(UIState *s) {
   const int radius = 96;
-  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 1800;
+  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 1300;
   const int center_y = s->viz_rect.bottom() - footer_h / 2;
   ui_draw_circle_image(s, center_x, center_y, radius, "driver_face", s->scene.dmonitoring_state.getIsActiveMode());
 }
@@ -290,7 +290,7 @@ static void ui_draw_driver_view(UIState *s) {
   const int face_radius = 85;
   const int center_x = is_rhd ? rect.right() - face_radius - bdr_s * 2 : rect.x + face_radius + bdr_s * 2;
   const int center_y = rect.bottom() - face_radius - bdr_s * 2.5;
-  ui_draw_circle_image(s, center_x + 1800, center_y, face_radius, "driver_face", face_detected);
+  ui_draw_circle_image(s, center_x + 1300, center_y, face_radius, "driver_face", face_detected);
   ui_draw_circle_image(s, center_x + 250, center_y, face_radius, "brake_disk", s->scene.brakeLights);
 }
 
