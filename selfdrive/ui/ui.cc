@@ -136,7 +136,8 @@ static void update_state(UIState *s) {
     s->scene.angleSteersDes = scene.controls_state.getSteeringAngleDesiredDeg();
     s->scene.vPid = scene.controls_state.getVPid();
     s->scene.vTargetLead = scene.controls_state.getVTargetLead();
-    s->scene.vCruise = scene.controls_state.getVCruise();   
+    s->scene.vCruise = scene.controls_state.getVCruise();
+    s->scene.aTarget = scene.controls_state.getATarget();  
   }
   if (sm.updated("carState")) {
     scene.car_state = sm["carState"].getCarState();
