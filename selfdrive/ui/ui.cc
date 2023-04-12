@@ -134,6 +134,9 @@ static void update_state(UIState *s) {
   if (scene.started && sm.updated("controlsState")) {
     scene.controls_state = sm["controlsState"].getControlsState();
     s->scene.angleSteersDes = scene.controls_state.getSteeringAngleDesiredDeg();
+    s->scene.vPid = scene.controls_state.getVPid();
+    s->scene.vTargetLead = scene.controls_state.getVTargetLead();
+    s->scene.vCruise = scene.controls_state.getVCruise();   
   }
   if (sm.updated("carState")) {
     scene.car_state = sm["carState"].getCarState();
@@ -142,6 +145,11 @@ static void update_state(UIState *s) {
     s->scene.engineRPM = scene.car_state.getEngineRPM();
     s->scene.coolantTemp = scene.car_state.getCoolantTemp();
     s->scene.boostPressure = scene.car_state.getBoostPressure();
+  }
+  if (sm.updated("carControl")) {
+    scene.car_control = sm["carControl"].getCarControl();
+    s->scene.gas = scene.car_control.getGas();
+    s->scene.brake = scene.car_control.getBrake();
   }
   if (sm.updated("radarState")) {
     std::optional<cereal::ModelDataV2::XYZTData::Reader> line;
@@ -193,13 +201,6 @@ static void update_state(UIState *s) {
   }
   if (sm.updated("liveLocationKalman")) {
     scene.gpsOK = sm["liveLocationKalman"].getLiveLocationKalman().getGpsOK();
-  }
-  if (sm.updated("longitudinalPlan")) {
-    auto data = sm["longitudinalPlan"].getLongitudinalPlan();
-    scene.desiredFollowDistance = data.getDesiredFollowDistance();
-    scene.followDistanceCost = data.getLeadDistCost();
-    scene.followAccelCost = data.getLeadAccelCost();
-    scene.stoppingDistance = data.getStoppingDistance();
   }
   if (sm.updated("gpsLocationExternal")) {
     auto gpsLocationExternal = sm["gpsLocationExternal"].getGpsLocationExternal();

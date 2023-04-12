@@ -93,15 +93,16 @@ typedef struct UIScene {
   int engineRPM;
   int coolantTemp;
   float boostPressure;
-  float desiredFollowDistance, followDistanceCost, followAccelCost;
-  float stoppingDistance;
-  
+  float gas, brake;
+  float vPid, vTargetLead, vCruise;
+
   int dashcamX;
   int dashcamY;
 
   cereal::DeviceState::Reader deviceState;
   cereal::RadarState::LeadData::Reader lead_data[2];
   cereal::CarState::Reader car_state;
+  cereal::CarControl::Reader car_control;
   cereal::ControlsState::Reader controls_state;
   cereal::DriverState::Reader driver_state;
   cereal::DriverMonitoringState::Reader dmonitoring_state;
