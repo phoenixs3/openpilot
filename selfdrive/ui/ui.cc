@@ -196,7 +196,10 @@ static void update_state(UIState *s) {
   }
   if (sm.updated("longitudinalPlan")) {
     auto data = sm["longitudinalPlan"].getLongitudinalPlan();
-
+    scene.desiredFollowDistance = data.getDesiredFollowDistance();
+    scene.followDistanceCost = data.getLeadDistCost();
+    scene.followAccelCost = data.getLeadAccelCost();
+    scene.stoppingDistance = data.getStoppingDistance();
   }
   if (sm.updated("gpsLocationExternal")) {
     auto gpsLocationExternal = sm["gpsLocationExternal"].getGpsLocationExternal();
