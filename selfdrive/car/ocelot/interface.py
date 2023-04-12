@@ -38,10 +38,10 @@ class CarInterface(CarInterfaceBase):
         ret.lateralTuning.pid.kf = 0.   #was 0.00007818594
         ret.safetyParam = 100           #alloutput for now
         ret.wheelbase = 2.36
-        ret.steerRatio = 22
+        ret.steerRatio = 21
         tire_stiffness_factor = 0.444
         ret.mass = 810 + STD_CARGO_KG
-        ret.steerRateCost = 1.
+        ret.steerRateCost = .7
         ret.centerToFront = ret.wheelbase * 0.44
 
     ret.rotationalInertia = scale_rot_inertia(ret.mass, ret.wheelbase)
@@ -59,8 +59,8 @@ class CarInterface(CarInterfaceBase):
     ret.longitudinalTuning.deadzoneV = [0., .15]
     
     #Longitudinal Proportional values
-    ret.longitudinalTuning.kpBP = [0., 5., 35.]
-    ret.longitudinalTuning.kpV = [0.4, 0.35, 0.3]
+    ret.longitudinalTuning.kpBP = [0., 5., 35.]   #0, 11mph, 78mph
+    ret.longitudinalTuning.kpV = [0.35, 0.30, 0.25]
     
     #Longitudinal Integral Values
     ret.longitudinalTuning.kiBP = [0., 55.]

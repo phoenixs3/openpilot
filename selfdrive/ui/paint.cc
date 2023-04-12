@@ -302,9 +302,7 @@ static void ui_draw_vision_header(UIState *s) {
 
   ui_fill_rect(s->vg, {s->viz_rect.x, s->viz_rect.y, s->viz_rect.w, header_h}, gradient);
 
-  ui_draw_vision_maxspeed(s);
   ui_draw_vision_speed(s);
-  ui_draw_vision_event(s);
 }
 
 //Dev UI Debug parameters
@@ -700,6 +698,8 @@ static void bb_ui_draw_UI(UIState *s){
 static void ui_draw_vision_footer(UIState *s) {
   ui_draw_vision_face(s);
   ui_draw_vision_brake(s);
+  ui_draw_vision_maxspeed(s);
+  ui_draw_vision_event(s);
   bb_ui_draw_UI(s);
 }
 
