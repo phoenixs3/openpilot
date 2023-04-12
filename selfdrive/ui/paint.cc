@@ -237,13 +237,12 @@ static void ui_draw_vision_event(UIState *s) {
     } else {
       ui_draw_circle_image(s, center_x, center_y, radius, "wheel", bg_colors[s->status], 1.0f);         //Alert Color
     }
-
   }
 }
 
 static void ui_draw_vision_face(UIState *s) {
   const int radius = 96;
-  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 1000;
+  const int center_x = s->viz_rect.x + radius + (bdr_s * 2) + 1800;
   const int center_y = s->viz_rect.bottom() - footer_h / 2;
   ui_draw_circle_image(s, center_x, center_y, radius, "driver_face", s->scene.dmonitoring_state.getIsActiveMode());
 }
@@ -291,7 +290,7 @@ static void ui_draw_driver_view(UIState *s) {
   const int face_radius = 85;
   const int center_x = is_rhd ? rect.right() - face_radius - bdr_s * 2 : rect.x + face_radius + bdr_s * 2;
   const int center_y = rect.bottom() - face_radius - bdr_s * 2.5;
-  ui_draw_circle_image(s, center_x + 1000, center_y, face_radius, "driver_face", face_detected);
+  ui_draw_circle_image(s, center_x + 1800, center_y, face_radius, "driver_face", face_detected);
   ui_draw_circle_image(s, center_x + 250, center_y, face_radius, "brake_disk", s->scene.brakeLights);
 }
 
@@ -374,7 +373,7 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
       if((s->scene.coolantTemp) < 40) {         //blue
-        val_color = nvgRGBA(25, 65, 132, 200);
+        val_color = nvgRGBA(160, 160, 190, 200);
       }
       if((s->scene.coolantTemp) > 60) {         //white
         val_color = nvgRGBA(255, 255, 255, 200);
@@ -394,6 +393,7 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
     bb_ry = bb_y + bb_h;
   }
   //add Ublox GPS accuracy
+  /*
   if (scene->gpsAccuracyUblox != 0.00) {
     char val_str[16];
     char uom_str[3];
@@ -413,7 +413,7 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
-  }
+  }*/
   //add altitude
   if (scene->gpsAccuracyUblox != 0.00) {
     char val_str[16];
@@ -422,6 +422,54 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
     snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.altitudeUblox));
     snprintf(uom_str, sizeof(uom_str), "m");
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "ALTITUDE",
+        bb_rx, bb_ry, bb_uom_dx,
+        val_color, lab_color, uom_color,
+        value_fontSize, label_fontSize, uom_fontSize );
+    bb_ry = bb_y + bb_h;
+  }
+  //add steering angle
+  if (true) {
+    char val_str[16];
+    char uom_str[6];
+    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
+      //show Orange if more than 90 degrees
+      //show red if  more than 200 degrees
+      if(((s->scene.angleSteers) < -90) || ((s->scene.angleSteers) > 90)) {
+        val_color = nvgRGBA(255, 188, 3, 200);
+      }
+      if(((s->scene.angleSteers) < -200) || ((s->scene.angleSteers) > 200)) {
+        val_color = nvgRGBA(255, 0, 0, 200);
+      }
+      // steering is in degrees
+      snprintf(val_str, sizeof(val_str), "%.0f%s%s",s->scene.angleSteers , "°", "");
+      snprintf(uom_str, sizeof(uom_str), "");
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "REAL STEER",
+        bb_rx, bb_ry, bb_uom_dx,
+        val_color, lab_color, uom_color,
+        value_fontSize, label_fontSize, uom_fontSize );
+    bb_ry = bb_y + bb_h;
+  }
+  //add desired steering angle
+  if (true) {
+    char val_str[16];
+    char uom_str[6];
+    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
+    if (scene->controls_state.getEnabled()) {
+      //show Orange if more than 20 degrees
+      //show red if  more than 30 degrees
+      if(((s->scene.angleSteersDes) < -20) || ((s->scene.angleSteersDes) > 20)) {
+        val_color = nvgRGBA(255, 188, 3, 200);
+      }
+      if(((s->scene.angleSteersDes) < -30) || ((s->scene.angleSteersDes) > 30)) {
+        val_color = nvgRGBA(255, 0, 0, 200);
+      }
+      // steering is in degrees
+      snprintf(val_str, sizeof(val_str), "%.0f%s%s", s->scene.angleSteersDes, "°", "");
+    } else {
+       snprintf(val_str, sizeof(val_str), "-");
+    }
+      snprintf(uom_str, sizeof(uom_str), "");
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "DESIR STEER",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
@@ -440,14 +488,45 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
-  //add aEgo
+  //engineRPM
   if (true) {
     char val_str[16];
-    char uom_str[6];
+    char uom_str[4];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.car_state.getAEgo()));
-    snprintf(uom_str, sizeof(uom_str), "m/s²");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "ACCEL",
+    if((s->scene.engineRPM) > 5000) {
+        val_color = nvgRGBA(255, 188, 3, 200);
+    }
+    if((s->scene.engineRPM) > 6200) {
+        val_color = nvgRGBA(255, 0, 0, 200);
+    }
+    if(s->scene.engineRPM == 0) {
+      snprintf(val_str, sizeof(val_str), "OFF");
+    }
+    else {snprintf(val_str, sizeof(val_str), "%d", (s->scene.engineRPM));}
+    snprintf(uom_str, sizeof(uom_str), "");
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "ENG RPM",
+        bb_rx, bb_ry, bb_uom_dx,
+        val_color, lab_color, uom_color,
+        value_fontSize, label_fontSize, uom_fontSize );
+    bb_ry = bb_y + bb_h;
+  }
+  //boostPressure
+  if (true) {
+    char val_str[16];
+    char uom_str[4];
+    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
+    if((s->scene.boostPressure) > 1.0) {
+        val_color = nvgRGBA(255, 188, 3, 200);
+    }
+    if((s->scene.boostPressure) > 1.4) {
+        val_color = nvgRGBA(255, 0, 0, 200);
+    }
+    if(s->scene.boostPressure < 0) {
+      snprintf(val_str, sizeof(val_str), "0.00");
+    }
+    else {snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.boostPressure));}
+    snprintf(uom_str, sizeof(uom_str), "bar");
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "BOOST",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
@@ -533,98 +612,21 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
-  //add steering angle
+  //add aEgo
   if (true) {
     char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-      //show Orange if more than 90 degrees
-      //show red if  more than 200 degrees
-      if(((s->scene.angleSteers) < -90) || ((s->scene.angleSteers) > 90)) {
-        val_color = nvgRGBA(255, 188, 3, 200);
-      }
-      if(((s->scene.angleSteers) < -200) || ((s->scene.angleSteers) > 200)) {
-        val_color = nvgRGBA(255, 0, 0, 200);
-      }
-      // steering is in degrees
-      snprintf(val_str, sizeof(val_str), "%.0f%s%s",s->scene.angleSteers , "°", "");
-      snprintf(uom_str, sizeof(uom_str), "");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "REAL STEER",
+    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.car_state.getAEgo()));
+    snprintf(uom_str, sizeof(uom_str), "m/s²");
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "ACCEL",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
-  //add desired steering angle
-  if (true) {
-    char val_str[16];
-    char uom_str[6];
-    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    if (scene->controls_state.getEnabled()) {
-      //show Orange if more than 20 degrees
-      //show red if  more than 30 degrees
-      if(((s->scene.angleSteersDes) < -20) || ((s->scene.angleSteersDes) > 20)) {
-        val_color = nvgRGBA(255, 188, 3, 200);
-      }
-      if(((s->scene.angleSteersDes) < -30) || ((s->scene.angleSteersDes) > 30)) {
-        val_color = nvgRGBA(255, 0, 0, 200);
-      }
-      // steering is in degrees
-      snprintf(val_str, sizeof(val_str), "%.0f%s%s", s->scene.angleSteersDes, "°", "");
-    } else {
-       snprintf(val_str, sizeof(val_str), "-");
-    }
-      snprintf(uom_str, sizeof(uom_str), "");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "DESIR STEER",
-        bb_rx, bb_ry, bb_uom_dx,
-        val_color, lab_color, uom_color,
-        value_fontSize, label_fontSize, uom_fontSize );
-    bb_ry = bb_y + bb_h;
-  }
-  //engineRPM
-  if (true) {
-    char val_str[16];
-    char uom_str[4];
-    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    if((s->scene.engineRPM) > 5000) {
-        val_color = nvgRGBA(255, 188, 3, 200);
-    }
-    if((s->scene.engineRPM) > 6200) {
-        val_color = nvgRGBA(255, 0, 0, 200);
-    }
-    if(s->scene.engineRPM == 0) {
-      snprintf(val_str, sizeof(val_str), "OFF");
-    }
-    else {snprintf(val_str, sizeof(val_str), "%d", (s->scene.engineRPM));}
-    snprintf(uom_str, sizeof(uom_str), "");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "ENG RPM",
-        bb_rx, bb_ry, bb_uom_dx,
-        val_color, lab_color, uom_color,
-        value_fontSize, label_fontSize, uom_fontSize );
-    bb_ry = bb_y + bb_h;
-  }
-  //boostPressure
-  if (true) {
-    char val_str[16];
-    char uom_str[4];
-    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    if((s->scene.boostPressure) > 1.0) {
-        val_color = nvgRGBA(255, 188, 3, 200);
-    }
-    if((s->scene.boostPressure) > 1.4) {
-        val_color = nvgRGBA(255, 0, 0, 200);
-    }
-    if(s->scene.boostPressure < 0) {
-      snprintf(val_str, sizeof(val_str), "0.00");
-    }
-    else {snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.boostPressure));}
-    snprintf(uom_str, sizeof(uom_str), "bar");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "BOOST",
-        bb_rx, bb_ry, bb_uom_dx,
-        val_color, lab_color, uom_color,
-        value_fontSize, label_fontSize, uom_fontSize );
-    bb_ry = bb_y + bb_h;
-  }
+  
+
   //finally draw the frame
   bb_h += 20;
   nvgBeginPath(s->vg);
@@ -638,10 +640,10 @@ static void bb_ui_draw_UI(UIState *s){
   //const UIScene *scene = &s->scene;
   const int bb_dml_w = 180;
   const int bb_dml_x = (s->viz_rect.x + (bdr_s * 2));
-  const int bb_dml_y = (s->viz_rect.y + (bdr_s * 1.5)) + 10;
+  const int bb_dml_y = (s->viz_rect.y + (bdr_s * 1.5)) + 20;
   const int bb_dmr_w = 180;
   const int bb_dmr_x = s->viz_rect.x + s->viz_rect.w - bb_dmr_w - (bdr_s * 2);
-  const int bb_dmr_y = (s->viz_rect.y + (bdr_s * 1.5)) + 10;
+  const int bb_dmr_y = (s->viz_rect.y + (bdr_s * 1.5)) + 20;
   bb_ui_draw_measures_right(s, bb_dmr_x, bb_dmr_y-20, bb_dmr_w);
   bb_ui_draw_measures_left(s, bb_dml_x, bb_dml_y-20, bb_dml_w);
 }

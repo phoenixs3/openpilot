@@ -194,6 +194,10 @@ static void update_state(UIState *s) {
   if (sm.updated("liveLocationKalman")) {
     scene.gpsOK = sm["liveLocationKalman"].getLiveLocationKalman().getGpsOK();
   }
+  if (sm.updated("longitudinalPlan")) {
+    auto data = sm["longitudinalPlan"].getLongitudinalPlan();
+
+  }
   if (sm.updated("gpsLocationExternal")) {
     auto gpsLocationExternal = sm["gpsLocationExternal"].getGpsLocationExternal();
     s->scene.gpsAccuracyUblox = gpsLocationExternal.getAccuracy();
