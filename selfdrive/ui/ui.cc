@@ -133,10 +133,10 @@ static void update_state(UIState *s) {
   UIScene &scene = s->scene;
   if (scene.started && sm.updated("controlsState")) {
     scene.controls_state = sm["controlsState"].getControlsState();
-    s->scene.angleSteersDes = scene.controls_state.getSteeringAngleDesiredDeg();
-    s->scene.vPid = scene.controls_state.getVPid();
-    s->scene.vTargetLead = scene.controls_state.getVTargetLead();
-    s->scene.vCruise = scene.controls_state.getVCruise();   
+    //s->scene.angleSteersDes = scene.controls_state.getSteeringAngleDesiredDeg();
+    //s->scene.vPid = scene.controls_state.getVPid();
+    //s->scene.vTargetLead = scene.controls_state.getVTargetLead();
+    //s->scene.vCruise = scene.controls_state.getVCruise();   
   }
   if (sm.updated("carState")) {
     scene.car_state = sm["carState"].getCarState();
@@ -146,11 +146,11 @@ static void update_state(UIState *s) {
     s->scene.coolantTemp = scene.car_state.getCoolantTemp();
     s->scene.boostPressure = scene.car_state.getBoostPressure();
   }
-  if (sm.updated("carControl")) {
-    scene.car_control = sm["carControl"].getCarControl();
-    s->scene.gas = scene.car_control.getActuators().getGas();
-    s->scene.brake = scene.car_control.getActuators().getBrake();
-  }
+  //if (sm.updated("carControl")) {
+  //  scene.car_control = sm["carControl"].getCarControl();
+  //  s->scene.gas = scene.car_control.getActuators().getGas();
+  //  s->scene.brake = scene.car_control.getActuators().getBrake();
+  //}
   if (sm.updated("radarState")) {
     std::optional<cereal::ModelDataV2::XYZTData::Reader> line;
     if (sm.rcv_frame("modelV2") > 0) {

@@ -93,8 +93,8 @@ typedef struct UIScene {
   int engineRPM;
   int coolantTemp;
   float boostPressure;
-  float gas, brake;
-  float vPid, vTargetLead, vCruise;
+  //float gas, brake;
+  //float vPid, vTargetLead, vCruise;
 
   int dashcamX;
   int dashcamY;
