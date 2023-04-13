@@ -149,7 +149,7 @@ static void update_state(UIState *s) {
     s->scene.gas = scene.car_state.getGas();
     s->scene.brake = scene.car_state.getBrake();
   }
-  if (sm.updated("carControl")) {
+  if (sm.updated("controlsState")) {
   //  auto car_control = sm["carControl"].getCarControl();
   //  s->scene.gas = car_control.getActuators().getGas();
   //  s->scene.brake = car_control.getActuators().getBrake();
