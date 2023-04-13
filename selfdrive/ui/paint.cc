@@ -666,9 +666,9 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.car_control.getActuators().getGas()*100));
+    snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.gas*100));
     snprintf(uom_str, sizeof(uom_str), "%%");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "BRAKE",
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "GAS",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
@@ -691,8 +691,8 @@ static void bb_ui_draw_UI(UIState *s){
   const int bb_dmr_w = 180;
   const int bb_dmr_x = s->viz_rect.x + s->viz_rect.w - bb_dmr_w - (bdr_s * 2);
   const int bb_dmr_y = (s->viz_rect.y + (bdr_s * 1.5)) + 20;
-  bb_ui_draw_measures_right(s, bb_dmr_x, bb_dmr_y-8, bb_dmr_w);
-  bb_ui_draw_measures_left(s, bb_dml_x, bb_dml_y-8, bb_dml_w);
+  bb_ui_draw_measures_right(s, bb_dmr_x, bb_dmr_y-32, bb_dmr_w);
+  bb_ui_draw_measures_left(s, bb_dml_x, bb_dml_y-32, bb_dml_w);
 }
 //BB END: functions added for the display of various items
 static void ui_draw_vision_footer(UIState *s) {

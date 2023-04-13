@@ -146,6 +146,8 @@ static void update_state(UIState *s) {
     s->scene.engineRPM = scene.car_state.getEngineRPM();
     s->scene.coolantTemp = scene.car_state.getCoolantTemp();
     s->scene.boostPressure = scene.car_state.getBoostPressure();
+    s->scene.gas = scene.car_state.getGas();
+    s->scene.brake = scene.car_state.getBrake();
   }
   //if (sm.updated("carControl")) {
   //  auto car_control = sm["carControl"].getCarControl();
