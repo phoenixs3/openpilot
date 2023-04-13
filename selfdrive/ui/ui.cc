@@ -146,13 +146,13 @@ static void update_state(UIState *s) {
     s->scene.engineRPM = scene.car_state.getEngineRPM();
     s->scene.coolantTemp = scene.car_state.getCoolantTemp();
     s->scene.boostPressure = scene.car_state.getBoostPressure();
-    s->scene.gas = scene.car_state.getGas();
-    s->scene.brake = scene.car_state.getBrake();
+    //s->scene.gas = scene.car_state.getGas();
+    //s->scene.brake = scene.car_state.getBrake();
   }
   if (s->scene.started && s->sm->updated("carControl")) {
-  //  auto car_control = sm["carControl"].getCarControl();
-  //  s->scene.gas = car_control.getActuators().getGas();
-  //  s->scene.brake = car_control.getActuators().getBrake();
+    auto car_control = sm["carControl"].getCarControl();
+    s->scene.gas = car_control.getActuators().getGas();
+    s->scene.brake = car_control.getActuators().getBrake();
   }
   if (sm.updated("radarState")) {
     std::optional<cereal::ModelDataV2::XYZTData::Reader> line;
