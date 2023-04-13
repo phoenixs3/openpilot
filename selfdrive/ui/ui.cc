@@ -151,7 +151,7 @@ static void update_state(UIState *s) {
   }
   if (s->scene.started && sm.updated("carControl")) {
     auto car_control = sm["carControl"].getCarControl();
-    //s->scene.gas = car_control.getActuators().getGas();
+    s->scene.gas = car_control.getGas();
     //s->scene.brake = car_control.getActuators().getBrake();
   }
   if (sm.updated("radarState")) {
