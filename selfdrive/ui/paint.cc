@@ -616,7 +616,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.controls_state.getVPid()*2.24));
     snprintf(uom_str, sizeof(uom_str), "mph");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "vPid",
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "V PID",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
@@ -629,20 +629,20 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.controls_state.getVTargetLead()*2.24));
     snprintf(uom_str, sizeof(uom_str), "mph");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "vTargetLead",
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "V LEAD",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
-  //add vCruise
+  //add diff between speed and vtarget
   if (true) {
     char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.controls_state.getVCruise()*0.62));
+    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.controls_state.getVPid()*2.24)-(s->scene.car_state.getVEgo()));
     snprintf(uom_str, sizeof(uom_str), "mph");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "vCruise",
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "V DIFF",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
@@ -666,7 +666,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.gas));
+    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.gas)*0.39);
     snprintf(uom_str, sizeof(uom_str), "%%");
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "GAS",
         bb_rx, bb_ry, bb_uom_dx,
