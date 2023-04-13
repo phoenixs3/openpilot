@@ -614,8 +614,8 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.controls_state.getVPid()));
-    snprintf(uom_str, sizeof(uom_str), "m/s");
+    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.controls_state.getVPid()*0.62));
+    snprintf(uom_str, sizeof(uom_str), "mph");
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "vPid",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
@@ -627,8 +627,8 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.controls_state.getVTargetLead()));
-    snprintf(uom_str, sizeof(uom_str), "m/s");
+    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.controls_state.getVTargetLead()*0.62));
+    snprintf(uom_str, sizeof(uom_str), "mph");
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "vTargetLead",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
@@ -640,8 +640,8 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.controls_state.getVCruise()));
-    snprintf(uom_str, sizeof(uom_str), "m/s");
+    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.controls_state.getVCruise()*0.62));
+    snprintf(uom_str, sizeof(uom_str), "mph");
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "vCruise",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
@@ -661,14 +661,14 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
-  //add aTarget
+  //add brake
   if (true) {
     char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.controls_state.getATarget()*10));
-    snprintf(uom_str, sizeof(uom_str), "m/s²");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "aTarget",
+    snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.car_control.getActuators().getBrake()*100));
+    snprintf(uom_str, sizeof(uom_str), "%%");
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "BRAKE",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );

@@ -41,7 +41,7 @@ class CarInterface(CarInterfaceBase):
         ret.steerRatio = 21
         tire_stiffness_factor = 0.444
         ret.mass = 810 + STD_CARGO_KG
-        ret.steerRateCost = .7
+        ret.steerRateCost = 0.6
         ret.centerToFront = ret.wheelbase * 0.44
 
     ret.rotationalInertia = scale_rot_inertia(ret.mass, ret.wheelbase)
@@ -55,23 +55,25 @@ class CarInterface(CarInterfaceBase):
     ret.minEnableSpeed = -1.
 
     #Longitudinal deadzone values
-    ret.longitudinalTuning.deadzoneBP = [0., 9.]
+    ret.longitudinalTuning.deadzoneBP = [0., 9.]   #0mph, 20mph
     ret.longitudinalTuning.deadzoneV = [0., .15]
     
     #Longitudinal Proportional values
-    ret.longitudinalTuning.kpBP = [0., 5., 35.]   #0, 11mph, 78mph
-    ret.longitudinalTuning.kpV = [0.35, 0.30, 0.25]
+    ret.longitudinalTuning.kpBP = [0., 5., 35.]    #0mph, 11mph, 78mph
+    #ret.longitudinalTuning.kpV = [0.35, 0.30, 0.25]
+    ret.longitudinalTuning.kpV = [0.30, 0.25, 0.23]
     
     #Longitudinal Integral Values
-    ret.longitudinalTuning.kiBP = [0., 45.]
-    ret.longitudinalTuning.kiV = [0.26, 0.1]
+    ret.longitudinalTuning.kiBP = [0., 45.]       #0mph, 100mph   
+    #ret.longitudinalTuning.kiV = [0.26, 0.1]
+    ret.longitudinalTuning.kiV = [0.0, 0.0]
 
     #Gas maximum values
-    ret.gasMaxBP = [0., 2., 6., 35]
+    ret.gasMaxBP = [0., 2., 6., 35]               #0mph, 5mph, 13mph, 78mph
     ret.gasMaxV = [0.24, 0.3, 0.35, 0.4]
 
     #Brake maximum values
-    ret.brakeMaxBP = [5., 20.]
+    ret.brakeMaxBP = [5., 20.]                    #11mph, 44mph 
     ret.brakeMaxV = [.45, .45]
 
     return ret
