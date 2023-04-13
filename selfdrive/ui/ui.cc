@@ -149,11 +149,11 @@ static void update_state(UIState *s) {
     s->scene.gas = scene.car_state.getGas();
     s->scene.brake = scene.car_state.getBrake();
   }
-  if (scene.started && sm.updated("carControl")) {
+  //if (scene.started && sm.updated("carControl")) {
     //scene.car_control = sm["carControl"].getCarControl();
     //s->scene.gas = scene.car_control.getActuators().getGas();
     //s->scene.brake = car_control.getActuators().getBrake();
-  }
+  //}
   if (sm.updated("radarState")) {
     std::optional<cereal::ModelDataV2::XYZTData::Reader> line;
     if (sm.rcv_frame("modelV2") > 0) {
