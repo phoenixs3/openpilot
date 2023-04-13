@@ -28,7 +28,7 @@ class CarInterface(CarInterfaceBase):
     ret.lateralTuning.init('pid')
     ret.safetyModel = car.CarParams.SafetyModel.allOutput
 
-    ret.steerActuatorDelay = 0.15
+    ret.steerActuatorDelay = 0.10
     ret.steerLimitTimer = 0.4
 
     if candidate == CAR.SMART_ROADSTER_COUPE:
@@ -41,7 +41,7 @@ class CarInterface(CarInterfaceBase):
         ret.steerRatio = 21
         tire_stiffness_factor = 0.444
         ret.mass = 810 + STD_CARGO_KG
-        ret.steerRateCost = 0.6
+        ret.steerRateCost = 0.5
         ret.centerToFront = ret.wheelbase * 0.44
 
     ret.rotationalInertia = scale_rot_inertia(ret.mass, ret.wheelbase)
@@ -61,12 +61,12 @@ class CarInterface(CarInterfaceBase):
     #Longitudinal Proportional values
     ret.longitudinalTuning.kpBP = [0., 5., 35.]    #0mph, 11mph, 78mph
     #ret.longitudinalTuning.kpV = [0.35, 0.30, 0.25]
-    ret.longitudinalTuning.kpV = [2.0, 1.8, 1.0]
+    ret.longitudinalTuning.kpV = [1.5, 1.30, 0.9]
     
     #Longitudinal Integral Values
     ret.longitudinalTuning.kiBP = [0., 45.]       #0mph, 100mph   
     #ret.longitudinalTuning.kiV = [0.26, 0.1]
-    ret.longitudinalTuning.kiV = [0.0, 0.0]
+    ret.longitudinalTuning.kiV = [0.1, 0.05]
 
     #Gas maximum values
     ret.gasMaxBP = [0., 2., 6., 35]               #0mph, 5mph, 13mph, 78mph
@@ -74,7 +74,7 @@ class CarInterface(CarInterfaceBase):
 
     #Brake maximum values
     ret.brakeMaxBP = [0., 35]             #0mph, 78mph
-    ret.brakeMaxV = [.26, .45]            #0.26*20 = 5.2mm, 0.26*0.45 = 9mm
+    ret.brakeMaxV = [.28, .45]            #0.26*20 = 5.2mm, 0.26*0.45 = 9mm
 
     return ret
 
