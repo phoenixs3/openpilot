@@ -202,7 +202,7 @@ static void ui_draw_vision_maxspeed(UIState *s) {
   const bool is_cruise_set = maxspeed != 0 && maxspeed != SET_SPEED_NA;
   if (is_cruise_set && !s->scene.is_metric) { maxspeed *= 0.6225; }
 
-  const Rect rect = {s->viz_rect.x + (bdr_s * 2) + 250, int(s->viz_rect.y + (bdr_s * 1.5)), 184, 202};
+  const Rect rect = {s->viz_rect.x + (bdr_s * 2) + 250, int(s->viz_rect.y + (bdr_s * 1.5)) - 12, 184, 202};
   ui_fill_rect(s->vg, rect, COLOR_BLACK_ALPHA(100), 30.);
   ui_draw_rect(s->vg, rect, COLOR_WHITE_ALPHA(100), 10, 20.);
 
@@ -691,8 +691,8 @@ static void bb_ui_draw_UI(UIState *s){
   const int bb_dmr_w = 180;
   const int bb_dmr_x = s->viz_rect.x + s->viz_rect.w - bb_dmr_w - (bdr_s * 2);
   const int bb_dmr_y = (s->viz_rect.y + (bdr_s * 1.5)) + 20;
-  bb_ui_draw_measures_right(s, bb_dmr_x, bb_dmr_y-20, bb_dmr_w);
-  bb_ui_draw_measures_left(s, bb_dml_x, bb_dml_y-20, bb_dml_w);
+  bb_ui_draw_measures_right(s, bb_dmr_x, bb_dmr_y-8, bb_dmr_w);
+  bb_ui_draw_measures_left(s, bb_dml_x, bb_dml_y-8, bb_dml_w);
 }
 //BB END: functions added for the display of various items
 static void ui_draw_vision_footer(UIState *s) {
