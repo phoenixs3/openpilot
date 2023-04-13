@@ -102,7 +102,7 @@ typedef struct UIScene {
   cereal::DeviceState::Reader deviceState;
   cereal::RadarState::LeadData::Reader lead_data[2];
   cereal::CarState::Reader car_state;
-  cereal::CarControl::Actuators::Reader actuators;
+  cereal::CarControl::Reader car_control;
   cereal::ControlsState::Reader controls_state;
   cereal::DriverState::Reader driver_state;
   cereal::DriverMonitoringState::Reader dmonitoring_state;
