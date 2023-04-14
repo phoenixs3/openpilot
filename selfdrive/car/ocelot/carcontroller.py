@@ -53,10 +53,12 @@ class CarController():
     #print("steer {0} {1} {2} {3}".format(apply_steer, min_lim, max_lim, CS.steer_torque_motor)
 
     #If low speed and no gas request then hold brakes on
-    if CS.out.vEgo < 0.1 and apply_gas < 0.005:
-      apply_brakes = 0.26                         #0.26*20 = 5.2mm travel
-    else:
-      apply_brakes = actuators.brake
+    #if CS.out.vEgo < 0.1 and apply_gas < 0.005:
+    #  apply_brakes = 0.26                         #0.26*20 = 5.2mm travel
+    #else:
+    #  apply_brakes = actuators.brake
+
+    apply_brakes = actuators.brake
 
     can_sends.append(create_steer_command(self.packer, apply_steer, apply_steer_req, frame))
     can_sends.append(create_ibst_command(self.packer, enabled, apply_brakes, frame))

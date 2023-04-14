@@ -28,8 +28,10 @@ class CarInterface(CarInterfaceBase):
     ret.lateralTuning.init('pid')
     ret.safetyModel = car.CarParams.SafetyModel.allOutput
 
-    ret.steerActuatorDelay = 0.10
-    ret.steerLimitTimer = 0.4
+    ret.steerActuatorDelay = 0.05       #too small: doesnt look far enough ahead, enters and exists curves late, corrects often in curve
+                                        #too large: looks too far ahead, dives into corners too early, hugs inside then exits too early
+                                        #going to the outside of the curve
+    ret.steerLimitTimer = 0.4           #time between wheel nudge alerts
 
     if candidate == CAR.SMART_ROADSTER_COUPE:
         ret.lateralTuning.init('pid')
@@ -49,10 +51,13 @@ class CarInterface(CarInterfaceBase):
                                                                          tire_stiffness_factor=tire_stiffness_factor)
 
     ret.enableGasInterceptor = True
-    #ret.stoppingControl = True
+    #ret.stoppingControl = True       #somthing to do with toyota
     ret.enableCamera = True
     ret.openpilotLongitudinalControl = True
     ret.minEnableSpeed = -1.
+
+    ret.stoppingBrakeRate = 0.1 # reach stopping target smoothly (default 0.2)
+    ret.startingBrakeRate = 2.0 # release brakes fast (default 0.8)
 
     #Longitudinal deadzone values
     ret.longitudinalTuning.deadzoneBP = [0., 9.]   #0mph, 20mph
@@ -60,21 +65,22 @@ class CarInterface(CarInterfaceBase):
     
     #Longitudinal Proportional values
     ret.longitudinalTuning.kpBP = [0., 5., 35.]    #0mph, 11mph, 78mph
-    #ret.longitudinalTuning.kpV = [0.35, 0.30, 0.25]
-    ret.longitudinalTuning.kpV = [1.5, 1.30, 0.9]
+    #ret.longitudinalTuning.kpV = [0.45, 0.35, 0.3]  #originals
+    ret.longitudinalTuning.kpV = [1.3, 1.0, 0.8]
     
     #Longitudinal Integral Values
     ret.longitudinalTuning.kiBP = [0., 45.]       #0mph, 100mph   
-    #ret.longitudinalTuning.kiV = [0.26, 0.1]
-    ret.longitudinalTuning.kiV = [0.1, 0.05]
+    #ret.longitudinalTuning.kiV = [0.13, 0.1]     #originals
+    ret.longitudinalTuning.kiV = [0.2, 0.1]
 
     #Gas maximum values
     ret.gasMaxBP = [0., 2., 6., 35]               #0mph, 5mph, 13mph, 78mph
-    ret.gasMaxV = [0.24, 0.3, 0.35, 0.4]
+    #ret.gasMaxV = [0.24, 0.3, 0.35, 0.4]          #originals
+    ret.gasMaxV = [0.24, 0.3, 0.35, 0.5]
 
     #Brake maximum values
     ret.brakeMaxBP = [0., 35]             #0mph, 78mph
-    ret.brakeMaxV = [.28, .45]            #0.26*20 = 5.2mm, 0.26*0.45 = 9mm
+    ret.brakeMaxV = [.28, .45]            #0.26*20 = 5.2mm, 0.45*20 = 9mm
 
     return ret
 
