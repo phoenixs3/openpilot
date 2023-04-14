@@ -19,6 +19,7 @@ class CarState(CarStateBase):
     self.engineRPM = 0
     self.coolantTemp = 0
     self.boostPressure = 0
+    self.brakePosition = 0
     self.setSpeed = 10
     self.buttonStates = BUTTON_STATES.copy()
 
@@ -41,6 +42,7 @@ class CarState(CarStateBase):
         self.engineRPM = cp_body.vl["GEAR_PACKET"]["RPM"]
         self.coolantTemp = cp_body.vl["GEAR_PACKET"]["COOLANTTEMPERATURE"]
         self.boostPressure = cp_body.vl["SMART_MEG_02"]["MANIFOLDPRESSURE"]
+        self.brakePosition = cp.vl["BRAKE_STATUS"]["BRAKE_PEDAL_POSITION"]
 
     #iBooster data
     ret.brakePressed = bool(cp.vl["BRAKE_STATUS"]['DRIVER_BRAKE_APPLIED'])

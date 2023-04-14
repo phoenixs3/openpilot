@@ -52,7 +52,7 @@ class CarController():
     #*** control msgs ***
     #print("steer {0} {1} {2} {3}".format(apply_steer, min_lim, max_lim, CS.steer_torque_motor)
 
-    #If low speed and no gas request then hold brakes on
+    #If low speed and no gas request then hold brakes on (now using stock op stoppingcontrol feature)
     #if CS.out.vEgo < 0.1 and apply_gas < 0.005:
     #  apply_brakes = 0.26                         #0.26*20 = 5.2mm travel
     #else:

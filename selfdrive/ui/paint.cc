@@ -230,13 +230,7 @@ static void ui_draw_vision_event(UIState *s) {
     const int radius = 96;
     const int center_x = s->viz_rect.right() - radius - bdr_s * 2 - 250;
     const int center_y = s->viz_rect.y + radius  + (bdr_s * 1.5);
-    if (s->status == 0){
-      ui_draw_circle_image(s, center_x, center_y, radius, "wheel", nvgRGBA(150, 150, 150, 255), 1.0f);  //Engagable
-    } else if (s->status == 1){
-      ui_draw_circle_image(s, center_x, center_y, radius, "wheel", nvgRGBA(15, 80, 251, 255), 1.0f);    //Engaged
-    } else {
-      ui_draw_circle_image(s, center_x, center_y, radius, "wheel", bg_colors[s->status], 1.0f);         //Alert Color
-    }
+    ui_draw_circle_image(s, center_x, center_y, radius, "wheel", bg_colors[s->status], 1.0f);
   }
 }
 
@@ -609,6 +603,32 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
+  //add aEgo
+  if (true) {
+    char val_str[16];
+    char uom_str[6];
+    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
+    snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.car_state.getAEgo()));
+    snprintf(uom_str, sizeof(uom_str), "m/s²");
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "ACCEL",
+        bb_rx, bb_ry, bb_uom_dx,
+        val_color, lab_color, uom_color,
+        value_fontSize, label_fontSize, uom_fontSize );
+    bb_ry = bb_y + bb_h;
+  }
+  //add brake
+  if (true) {
+    char val_str[16];
+    char uom_str[6];
+    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
+    snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.controls_state.getATarget()*5));
+    snprintf(uom_str, sizeof(uom_str), "m/s²");
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "A TARGET",
+        bb_rx, bb_ry, bb_uom_dx,
+        val_color, lab_color, uom_color,
+        value_fontSize, label_fontSize, uom_fontSize );
+    bb_ry = bb_y + bb_h;
+  }
   //add vPid
   if (true) {
     char val_str[16];
@@ -616,14 +636,14 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     snprintf(val_str, sizeof(val_str), "%.1f", (s->scene.controls_state.getVPid()*2.24));
     snprintf(uom_str, sizeof(uom_str), "mph");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "V PID",
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "V TARGET",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
   //add vTargetLead
-  if (true) {
+  if (false) {
     char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
@@ -648,27 +668,23 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
-  //add aEgo
+  //brakePosition
   if (true) {
     char val_str[16];
-    char uom_str[6];
+    char uom_str[4];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.car_state.getAEgo()));
-    snprintf(uom_str, sizeof(uom_str), "m/s²");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "ACCEL",
-        bb_rx, bb_ry, bb_uom_dx,
-        val_color, lab_color, uom_color,
-        value_fontSize, label_fontSize, uom_fontSize );
-    bb_ry = bb_y + bb_h;
-  }
-  //add brake
-  if (true) {
-    char val_str[16];
-    char uom_str[6];
-    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.controls_state.getATarget()*5));
-    snprintf(uom_str, sizeof(uom_str), "m/s²");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "A TARGET",
+    if((s->scene.brakePosition) > 4.0) {
+        val_color = nvgRGBA(255, 188, 3, 200);
+    }
+    if((s->scene.brakePosition) > 6.0) {
+        val_color = nvgRGBA(255, 0, 0, 200);
+    }
+    if(s->scene.brakePosition < 0) {
+      snprintf(val_str, sizeof(val_str), "0.00");
+    }
+    else {snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.brakePosition));}
+    snprintf(uom_str, sizeof(uom_str), "mm");
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "BRAKE POS",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
