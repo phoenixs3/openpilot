@@ -192,7 +192,7 @@ struct CarState {
   engineRPM @37 :Float32;
   coolantTemp @38 :Float32;
   boostPressure @39 :Float32;
-  brakePosition @39 :Float32;
+  brakePosition @40 :Float32;
 
   struct WheelSpeeds {
     # optional wheel speeds
