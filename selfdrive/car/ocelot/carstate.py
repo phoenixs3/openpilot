@@ -42,11 +42,11 @@ class CarState(CarStateBase):
         self.engineRPM = cp_body.vl["GEAR_PACKET"]["RPM"]
         self.coolantTemp = cp_body.vl["GEAR_PACKET"]["COOLANTTEMPERATURE"]
         self.boostPressure = cp_body.vl["SMART_MEG_02"]["MANIFOLDPRESSURE"]
-        self.brakePosition = cp.vl["BRAKE_STATUS"]["BRAKE_PEDAL_POSITION"]
 
     #iBooster data
     ret.brakePressed = bool(cp.vl["BRAKE_STATUS"]['DRIVER_BRAKE_APPLIED'])
     ret.brakeLights = bool(cp.vl["BRAKE_STATUS"]['BRAKE_APPLIED'])
+    ret.brakePosition = cp.vl["BRAKE_STATUS"]["BRAKE_PEDAL_POSITION"]
     self.brakeUnavailable = not bool(cp.vl["BRAKE_STATUS"]['BRAKE_OK'])
 
     if self.CP.enableGasInterceptor:
