@@ -74,13 +74,13 @@ class CarInterface(CarInterfaceBase):
     ret.longitudinalTuning.kiV = [0.2, 0.1]
 
     #Gas maximum values
-    ret.gasMaxBP = [0., 2., 6., 35]               #0mph, 5mph, 13mph, 78mph
+    ret.gasMaxBP = [0., 2., 6., 35.]               #0mph, 5mph, 13mph, 78mph
     #ret.gasMaxV = [0.24, 0.3, 0.35, 0.4]          #originals
     ret.gasMaxV = [0.24, 0.3, 0.35, 0.5]
 
     #Brake maximum values
-    ret.brakeMaxBP = [0., 2., 35]             #0mph, 78mph
-    ret.brakeMaxV = [.26, 0.32,.45]            #0.26*20 = 5.2mm, 0.45*20 = 9mm
+    ret.brakeMaxBP = [0., 2., 35.]             #0mph, 78mph
+    ret.brakeMaxV = [.26, 0.32, .45]            #0.26*20 = 5.2mm, 0.45*20 = 9mm
 
     return ret
 
