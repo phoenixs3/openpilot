@@ -242,10 +242,10 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   EventName.startupMaster: {
     ET.PERMANENT: Alert(
-      "Self-Driving Development Platform",
+      "Be ready to take over at any time",
       "Always pay attention",
       AlertStatus.userPrompt, AlertSize.mid,
-      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
+      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 8.),
   },
 
   EventName.startupNoControl: {

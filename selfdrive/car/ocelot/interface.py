@@ -66,12 +66,12 @@ class CarInterface(CarInterfaceBase):
     #Longitudinal Proportional values
     ret.longitudinalTuning.kpBP = [0., 5., 35.]    #0mph, 11mph, 78mph
     #ret.longitudinalTuning.kpV = [0.45, 0.35, 0.3]  #originals
-    ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7]
+    ret.longitudinalTuning.kpV = [1.3, 1.0, 0.6]
     
     #Longitudinal Integral Values
     ret.longitudinalTuning.kiBP = [0., 45.]       #0mph, 100mph   
     #ret.longitudinalTuning.kiV = [0.13, 0.1]     #originals
-    ret.longitudinalTuning.kiV = [0.2, 0.08]
+    ret.longitudinalTuning.kiV = [0.2, 0.09]
 
     #Gas maximum values
     ret.gasMaxBP = [0., 2., 6., 35.]               #0mph, 5mph, 13mph, 78mph
