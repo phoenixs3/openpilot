@@ -34,6 +34,7 @@ Useful SSH Commands
 * Remove stock OP and install this fork & branch:
   * cd .. && rm -rf openpilot && mkdir openpilot && cd openpilot && git clone https://www.github.com/seb43654/openpilot.git .
   * git checkout devel
+  * Or use this install link: https://smiskol.com/fork/seb43654/devel
 * cd selfdrive/debug ./dump.py <value below>
   * carParams
   * carState
