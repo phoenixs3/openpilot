@@ -80,6 +80,7 @@ class Android(HardwareBase):
     return parse_service_call_string(service_call(["iphonesubinfo", "3", "i32", str(slot)]))
 
   def get_serial(self):
+    #ret = getprop("ro.serialno")
     ret = "268ec299"
     if len(ret) == 0:
       ret = "cccccccc"
