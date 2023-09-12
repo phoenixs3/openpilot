@@ -93,7 +93,7 @@ class LongitudinalMpc():
       self.a_lead_tau = _LEAD_ACCEL_TAU
 
     #follow distance in seconds
-    TR = 1.50
+    TR = 1.4
 
     # Calculate mpc
     t = sec_since_boot()
