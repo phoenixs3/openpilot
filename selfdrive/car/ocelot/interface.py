@@ -28,7 +28,7 @@ class CarInterface(CarInterfaceBase):
     ret.lateralTuning.init('pid')
     ret.safetyModel = car.CarParams.SafetyModel.allOutput
 
-    ret.steerActuatorDelay = 0.06       #too small: doesnt look far enough ahead, enters and exists curves late, corrects often in curve
+    ret.steerActuatorDelay = 0.05       #too small: doesnt look far enough ahead, enters and exists curves late, corrects often in curve
                                         #too large: looks too far ahead, dives into corners too early, hugs inside then exits too early
                                         #going to the outside of the curve
     ret.steerLimitTimer = 0.4           #time between wheel nudge alerts
@@ -43,7 +43,7 @@ class CarInterface(CarInterfaceBase):
         ret.steerRatio = 21
         tire_stiffness_factor = 0.444
         ret.mass = 810 + STD_CARGO_KG
-        ret.steerRateCost = 0.5
+        ret.steerRateCost = 0.4
         ret.centerToFront = ret.wheelbase * 0.44
 
     ret.rotationalInertia = scale_rot_inertia(ret.mass, ret.wheelbase)
@@ -61,7 +61,7 @@ class CarInterface(CarInterfaceBase):
 
     #Longitudinal deadzone values
     ret.longitudinalTuning.deadzoneBP = [0., 9.]   #0mph, 20mph
-    ret.longitudinalTuning.deadzoneV = [0., .15]
+    ret.longitudinalTuning.deadzoneV = [0.05, .15]
     
     #Longitudinal Proportional values
     ret.longitudinalTuning.kpBP = [0., 5., 35.]    #0mph, 11mph, 78mph
@@ -79,8 +79,8 @@ class CarInterface(CarInterfaceBase):
     ret.gasMaxV = [0.24, 0.3, 0.35, 0.5]
 
     #Brake maximum values
-    ret.brakeMaxBP = [0., 2., 35.]             #0mph, 78mph
-    ret.brakeMaxV = [.26, 0.32, .45]            #0.26*20 = 5.2mm, 0.45*20 = 9mm
+    ret.brakeMaxBP = [0., 2., 35.]             #0mph, 4.5mph, 78mph
+    ret.brakeMaxV = [.28, 0.35, .48]            #0.26*20 = 5.2mm, 0.45*20 = 9mm
 
     return ret
 
