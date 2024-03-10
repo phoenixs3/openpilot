@@ -80,7 +80,7 @@ class CarInterface(CarInterfaceBase):
 
     #Brake maximum values
     ret.brakeMaxBP = [0., 2., 35.]             #0mph, 4.5mph, 78mph
-    ret.brakeMaxV = [.28, 0.35, .48]            #0.26*20 = 5.2mm, 0.45*20 = 9mm
+    ret.brakeMaxV = [.3, .4, .7]            #0.26*20 = 5.2mm, 0.45*20 = 9mm
 
     return ret
 
