@@ -54,7 +54,7 @@ class CarController():
 
     #If low speed and no gas request then hold brakes on (now using stock op stoppingcontrol feature)
     if CS.out.vEgo < 0.05 and apply_gas < 0.005:
-      apply_brakes = 0.27                         #0.27*20 = 5.4mm travel
+      apply_brakes = 0.3                         #0.27*20 = 5.4mm travel
     else:
       apply_brakes = actuators.brake
 
