@@ -30,6 +30,8 @@ private:
   OffroadAlert* alerts_widget;
   QPushButton* alert_notification;
 
+  QImage andarna_img;
+
 public slots:
   void closeAlerts();
   void openAlerts();
