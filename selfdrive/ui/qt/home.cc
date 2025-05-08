@@ -92,20 +92,20 @@ OffroadHome::OffroadHome(QWidget* parent) : QFrame(parent) {
   main_layout->addSpacing(25);
   center_layout = new QStackedLayout();
 
-  QHBoxLayout* statsAndSetup = new QHBoxLayout();
-  statsAndSetup->setMargin(0);
+  //QHBoxLayout* statsAndSetup = new QHBoxLayout();
+  //statsAndSetup->setMargin(0);
 
-  DriveStats* drive = new DriveStats;
-  drive->setFixedSize(800, 800);
-  statsAndSetup->addWidget(drive);
+  //DriveStats* drive = new DriveStats;
+  //drive->setFixedSize(800, 800);
+  //statsAndSetup->addWidget(drive);
 
-  SetupWidget* setup = new SetupWidget;
-  statsAndSetup->addWidget(setup);
+  //SetupWidget* setup = new SetupWidget;
+  //statsAndSetup->addWidget(setup);
 
-  QWidget* statsAndSetupWidget = new QWidget();
-  statsAndSetupWidget->setLayout(statsAndSetup);
+  //QWidget* statsAndSetupWidget = new QWidget();
+  //statsAndSetupWidget->setLayout(statsAndSetup);
 
-  center_layout->addWidget(statsAndSetupWidget);
+  //center_layout->addWidget(statsAndSetupWidget);
 
   alerts_widget = new OffroadAlert();
   QObject::connect(alerts_widget, &OffroadAlert::closeAlerts, this, &OffroadHome::closeAlerts);
