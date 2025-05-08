@@ -102,6 +102,13 @@ OffroadHome::OffroadHome(QWidget* parent) : QFrame(parent) {
   //SetupWidget* setup = new SetupWidget;
   //statsAndSetup->addWidget(setup);
 
+  andarda_img = QImage("../assets/images/andarna_background.png").scaled(1200, 800, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  QPainter p(this);
+  p.setPen(Qt::NoPen);
+  p.setRenderHint(QPainter::Antialiasing);
+  p.setOpacity(1.0);
+  p.drawImage(60, 60, home_img);
+
   QWidget* statsAndSetupWidget = new QWidget();
   statsAndSetupWidget->setLayout(statsAndSetup);
 
