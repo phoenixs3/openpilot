@@ -141,7 +141,7 @@ void OffroadHome::paintEvent(QPaintEvent *event) {
   p.setPen(Qt::NoPen);
   p.setRenderHint(QPainter::Antialiasing);
   p.setOpacity(1.0);
-  p.drawImage(58, 150, andarna_img);
+  p.drawImage(52, 150, andarna_img);
 }
 
 void OffroadHome::openAlerts() {
