@@ -107,7 +107,7 @@ OffroadHome::OffroadHome(QWidget* parent) : QFrame(parent) {
   p.setPen(Qt::NoPen);
   p.setRenderHint(QPainter::Antialiasing);
   p.setOpacity(1.0);
-  p.drawImage(60, 60, home_img);
+  p.drawImage(60, 60, andarda_img);
 
   QWidget* statsAndSetupWidget = new QWidget();
   statsAndSetupWidget->setLayout(statsAndSetup);
