@@ -102,7 +102,7 @@ OffroadHome::OffroadHome(QWidget* parent) : QFrame(parent) {
   //SetupWidget* setup = new SetupWidget;
   //statsAndSetup->addWidget(setup);
 
-  andarna_img = QImage("../assets/images/andarna_background.png").scaled(1400, 800, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  andarna_img = QImage("../assets/images/andarna_background.png").scaled(1500, 857, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
   QWidget* statsAndSetupWidget = new QWidget();
   statsAndSetupWidget->setLayout(statsAndSetup);
@@ -141,7 +141,7 @@ void OffroadHome::paintEvent(QPaintEvent *event) {
   p.setPen(Qt::NoPen);
   p.setRenderHint(QPainter::Antialiasing);
   p.setOpacity(1.0);
-  p.drawImage(80, 90, andarna_img);
+  p.drawImage(70, 120, andarna_img);
 }
 
 void OffroadHome::openAlerts() {
