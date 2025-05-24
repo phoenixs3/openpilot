@@ -32,7 +32,8 @@ class CarState(CarStateBase):
         ret.seatbeltUnlatched = False   #smart doesnt publish seatbelt on canbus
         ret.leftBlinker, ret.rightBlinker = self.update_blinker(40, cp_body.vl["BODYCONTROL"]['LEFT_SIGNAL'] == 1,
                                                                           cp_body.vl["BODYCONTROL"]['RIGHT_SIGNAL'] == 1)
-        ret.espDisabled = bool(cp_body.vl["ABS"]['ESP_STATUS'])
+        #ret.espDisabled = bool(cp_body.vl["ABS"]['ESP_STATUS'])
+        ret.espDisabled = False
         ret.wheelSpeeds.fl = cp_body.vl["SMARTROADSTERWHEELSPEEDS"]['WHEELSPEED_FL'] * CV.MPH_TO_MS
         ret.wheelSpeeds.fr = cp_body.vl["SMARTROADSTERWHEELSPEEDS"]['WHEELSPEED_FR'] * CV.MPH_TO_MS
         ret.wheelSpeeds.rl = cp_body.vl["SMARTROADSTERWHEELSPEEDS"]['WHEELSPEED_RL'] * CV.MPH_TO_MS
